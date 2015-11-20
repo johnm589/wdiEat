@@ -1,3 +1,4 @@
+// required parameters to use the facebook-authentication
 module.exports = {
   'facebookAuth': {
     'clientID': '1703688579867486',

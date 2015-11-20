@@ -1,22 +1,19 @@
-var
-	express = require('express'),
-	app = express(),
-	ejs = require('ejs'),
-	ejsLayouts = require('express-ejs-layouts'),
-	mongoose = require('mongoose'),
-	flash = require('connect-flash'),
-	logger = require('morgan'),
-	cookieParser = require('cookie-parser'),
-	bodyParser = require('body-parser'),
-	session = require('express-session'),
-	passport = require('passport'),
-	passportConfig = require('./config/passport.js'),
-	Yelp	= require('yelp')
+// require modules 
+var passportConfig = require('./config/passport.js')
+				ejsLayouts = require('express-ejs-layouts'),
+							 ejs = require('ejs'),
+		 			mongoose = require('mongoose'),
+			 			 flash = require('connect-flash'),
+				 	 	logger = require('morgan'),
+	 		cookieParser = require('cookie-parser'),
+		 		bodyParser = require('body-parser'),
+		 			 session = require('express-session'),
+			 	 	passport = require('passport'),
+			 		 express = require('express'),
+					 		port = process.env.PORT || 3000,
+			 	 			 app = express()
 
-// environment port
-var port = process.env.PORT || 3000
-
-//user route
+// require routes
 var userRoutes = require('./routes/users.js')
 var shakerRoutes = require('./routes/shakers.js')
 
@@ -31,6 +28,8 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+
+// make files inside the public accessible to app
 app.use(express.static(__dirname + '/public'))
 
 // ejs configuration
@@ -43,20 +42,21 @@ app.use(session({
 	cookie: {_expires: 600000000}
 }))
 
-// passport middleware
+// passport and flash middleware
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-
-
 
 // root route
 app.get('/', function(req,res){
 	res.render('shaker', {user: req.user})
 })
+
+// use routes
 app.use('/', userRoutes)
 app.use('/', shakerRoutes)
 
+// start the server on port
 app.listen(port, function(){
-	console.log("Server running on port", port)
+	console.log("Server Running!", port)
 })

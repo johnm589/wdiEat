@@ -1,21 +1,25 @@
-var express     = require('express'),
-    shakerRouter= express.Router(),
-    request     = require('request'),
-    oauthSignature = require('oauth-signature'),
-    n           = require('nonce')(),
-    qs          = require('querystring'),
-    _           = require('lodash')
+// require modules and instantiate the shakerRouter
+var oauthSignature = require('oauth-signature'),
+           express = require('express'),
+           request = require('request'),
+                 n = require('nonce')(),
+                qs = require('querystring'),
+                 _ = require('lodash'),
+      shakerRouter = express.Router()
 
-
+// post route for /result;
 shakerRouter.post('/result', function(req,res) {
+  // category stores the selected values to be used in the category filter
   var category;
+  // convert req.body.cuisines from an array into a string
   if (req.body.cuisines !== undefined) {
-      category = req.body.cuisines.toString()
+    category = req.body.cuisines.toString()
   } else {
+    // if no value is selected for category filter, set category equal to "restaurants" so that the displayed result only includes restaurants
     category = "restaurants"
   }
 
-
+  // pass in the search criterias
   var current_search = {
     location: req.body.location,
     term: req.body.term,
@@ -23,11 +27,12 @@ shakerRouter.post('/result', function(req,res) {
     category_filter: category
   }
 
+  // create a function that handles
   var request_yelp = function(set_parameters) {
 
     var httpMethod = 'GET'
     var url = 'http://api.yelp.com/v2/search'
-  /* We set the require parameters here */
+  
     var required_parameters = {
       oauth_consumer_key : "aXYVJiMRADRj7lPUeQwiqg",
       oauth_token : "3rxm2icV9K7TMdf8e2-uYAbKS0IIbptm",
@@ -73,20 +78,6 @@ shakerRouter.post('/result', function(req,res) {
        }
 
      }
-      // res.send(chosen)
-
-      // var origin_idURL="https://maps.googleapis.com/maps/api/geocode/json?latlng="+req.body.cll+"&key=AIzaSyA_X-vj3xIoO8GLmr1YKR13B1JGOA_GE2M"
-      //  var destination_idURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+chosen.name.replace(' ','+')+"+"+chosen.location["city"].replace(' ','+')+"&key=AIzaSyA_X-vj3xIoO8GLmr1YKR13B1JGOA_GE2M"
-
-
-      // request(destination_idURL, function(error,response,body){
-        // var destination_id = JSON.parse(body)["results"][0]["place_id"]
-
-        // request(origin_idURL, function(error,response,body){
-          // var origin_id = JSON.parse(body)["results"][0]["place_id"]
-
-        // })
-      // })
   })
 }
 
