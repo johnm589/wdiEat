@@ -1,0 +1,29 @@
+<h1><%= chosen.name %></h1><br>
+<img src="<%= chosen.image_url %>">
+
+<p>phone-numbe: <%=chosen.display_phone %></p>
+<p>review count: <%= chosen.review_count %> </p>
+<p>rating: <%= chosen.rating%> </p>
+<img src=" <%= chosen.rating_img_url %>"><br>
+  <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+
+    src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
+   allowfullscreen>
+</iframe><br>
+
+
+<button id="shake-again">Try again</button>
+<a href="/"><button id="back">Back</button></a>
+
+
+
+<script>
+$('#shake-again').on('click',function(evt){
+  location.reload()
+})
+
+</script>

@@ -1,0 +1,167 @@
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1>Restaurant Shaker</h1>
+
+    <form id="search-criteria" action="/result" method="post">
+        <div class="form-group">
+            <label>Near</label>
+            <input type="text" id="location" class="form-control" name="location" placeholder="Current Location">
+        </div>
+
+        <div class="form-group">
+          <label>Find</label>
+            <input type="text" id="term" class="form-control" name="term">
+        </div>
+          <input type="hidden" id="cll" class="form-control" name="cll">
+          <input type="hidden" id="currentCity" class="form-control" name="currentCity">
+
+        <div class="form-group cuisines-container">
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="newamerican"> American (New)
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="tradamerican"> American (Traditional)
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options"
+            value="asianfusion"> Asian Fusion
+          </label>
+
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="breakfast_brunch"> Breakfast and Brunch
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="buffets"> Buffets
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="chinese"> Chinese
+            </label>
+            <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="french"> French
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="german"> German
+          </label>
+
+            <label class="form-control">
+              <input type="checkbox" name="cuisines" class="cuisines-options" value="gluten_free"> Gluten-Free
+            </label>
+            <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="greek"> Greek
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="italian"> Italian
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="japanese"> Japanese
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="korean"> Korean
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="latin"> Latin
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="malaysian"> Malaysian
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="mediterranean"> Mediterranean
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="mexican"> Mexican
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="mideastern"> Middle Eastern
+          </label><label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="polish"> Polish
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="portugese"> Portugese
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="salad"> Salad
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="spanish"> Spanish
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="taiwanese"> Taiwanese
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="thai"> Thai
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="vegan"> Vegan
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="vegetarian"> Vegetarian
+          </label>
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="vietnamese"> Vietnamese
+          </label>
+        </div>
+
+        <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-lg">Locating...</button>
+        <p id="location-status">Loading Current Location...<p>
+    </form>
+
+</div>
+
+<script>
+
+var latitude;
+var longitude;
+$.ajax({
+  url: '//freegeoip.net/json/',
+  type: 'POST',
+  dataType: 'jsonp',
+  success: function(location) {
+    current = location.city,
+    zipCode = location.zipcode,
+    cll = location.latitude.toString() + "," + location.longitude.toString()
+  }
+})
+
+
+
+$('#shake').click(function(){
+
+   if ($('#location').val() === "") {
+          $('#location').val(current)
+        }
+  if ($('#cll').val() === ""){
+      $('#cll').val(cll)
+  }
+      })
+
+
+$('document').ready(function(){
+  if (!navigator.geolocation) {
+    console.log('Device does not support this feature')
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error)
+
+  function success(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      console.log(latitude,longitude)
+      $('#cll').val(latitude+','+longitude)
+      $('#location-status').text('Current Location found!')
+      $('#shake').removeAttr('disabled')
+      $('#shake').text('Shake!')
+
+  }
+
+  function error() {
+    $('#location-status').text('Current Location Service Disabled (Notes: This would affect the accuracy of result)')
+    $('#shake').removeAttr('disabled')
+
+  }
+
+
+
+})
+
+
+</script>
