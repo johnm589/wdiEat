@@ -1,6 +1,15 @@
 <h1><%= chosen.name %></h1><br>
 <img src="<%= chosen.image_url %>">
-
+<p><%= chosen.location["display_address"].toString() %></p>
+<span>Category: </span>
+<% for (var i = 0; i < chosen.categories.length; i++) { %>
+  <% if (i === 0){ %>
+    <span><%= chosen.categories[i][0] %></span>
+  <% } else {%>
+    <span>,<%= chosen.categories[i][0] %></span>
+    <% } %>
+<% } %>
+<p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
 <p>phone-numbe: <%=chosen.display_phone %></p>
 <p>review count: <%= chosen.review_count %> </p>
 <p>rating: <%= chosen.rating%> </p>

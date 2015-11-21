@@ -8,14 +8,28 @@ var userSchema = new Schema ({
   local: {
     name: String,
     email: String,
-    password: String
+    password: String,
+    favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
   },
   facebook: {
     id: String,
     name: String,
     token: String, // check if the user has authorized
-    email: String
+    email: String,
+    favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
   }
+})
+
+var favoriteSchema = Schema({
+  _owner: {type: Number, ref: 'User'},
+  rating: Number,
+  review_count: Number,
+  name: String,
+  url: String,
+  display_phone: String,
+  address: String,
+  categories: Array,
+  image_url: String
 })
 
 // generate an encrypted password

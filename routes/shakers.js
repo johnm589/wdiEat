@@ -61,6 +61,7 @@ shakerRouter.post('/result', function(req,res) {
     // combine the url with the search parameters and authentication information into one string
     var apiURL = url+'?'+paramURL
 
+    console.log(apiURL)
    // make a request to yelp
    request(apiURL, function(error, response, body){
      if (error) {
@@ -68,9 +69,10 @@ shakerRouter.post('/result', function(req,res) {
      } else {
        // if the request was successful and the result contains information of at least one restaurant, then pick ONE restaurant randomly from the result
        if (JSON.parse(body)["total"] !== 0) {
-           console.log(JSON.parse(body))
+
            var random = Math.floor((Math.random() * JSON.parse(body).businesses.length))
            var chosen = JSON.parse(body).businesses[random]
+           console.log(chosen)
            res.render('result', {chosen: chosen, user:req.user, cll: req.body.cll})
        } else {
         // if the request was successful and the result includes 0 restaurants, prompt user to try again

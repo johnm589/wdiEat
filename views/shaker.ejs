@@ -116,6 +116,7 @@ $.ajax({
   type: 'POST',
   dataType: 'jsonp',
   success: function(location) {
+    console.log('found')
     current = location.city,
     zipCode = location.zipcode,
     cll = location.latitude.toString() + "," + location.longitude.toString()
@@ -134,7 +135,7 @@ $('.cuisines-options').click(function(){
 
 $('#shake').click(function(){
 
-   if ($('#location').val() === "") {
+   if ($('#location').val() === "" && current) {
           $('#location').val(current)
         }
   if ($('#cll').val() === ""){
@@ -158,7 +159,6 @@ $('document').ready(function(){
       $('#location-status').text('Current Location found!')
       $('#shake').removeAttr('disabled')
       $('#shake').text('Shake!')
-
   }
 
   function error() {
