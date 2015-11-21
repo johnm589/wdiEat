@@ -4,3 +4,11 @@
   overflow-x: hidden;
   border: 1px solid black;
 }
+
+.cuisines-options {
+  display:none;
+}
+
+.checked {
+  background-color: skyblue;
+}

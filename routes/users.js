@@ -11,8 +11,8 @@ userRouter.route('/login')
   })
   // post request for url /login; create a session if login was successful
   .post(passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
+    successRedirect: '/profile',
+    failureRedirect: '/session',
     failureFlash: true
   }))
 
@@ -24,8 +24,8 @@ userRouter.route('/signup')
   })
   // post request for url /signup; create a user in the database if signup was successful
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/',
-    failureRedirect: 'signup',
+    successRedirect: '/profile',
+    failureRedirect: '/session',
     failureFlash: true
   }))
 
@@ -39,14 +39,18 @@ userRouter.get('/auth/facebook', passport.authenticate('facebook', {scope: ['ema
 
 // get request for auth/facebook/callback; callback url for facebook authentication
 userRouter.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/',
-  failureRedirect: '/signup'
+  successRedirect: '/profile',
+  failureRedirect: '/session'
 }))
 
 // get request for url /logout; destroy current session
 userRouter.get('/logout', function(req, res) {
   req.logout()
   res.redirect('/')
+})
+
+userRouter.get('/session', function(req, res) {
+  res.render('session', {user: req.user})
 })
 
 // middleware; if authentication was successful, invoke next; otherwise, redirect to root

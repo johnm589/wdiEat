@@ -122,6 +122,14 @@ $.ajax({
   }
 })
 
+$('.cuisines-options').click(function(){
+  if ($(this).parent().hasClass('checked')){
+    $(this).parent().removeClass('checked')
+  }
+  else {
+    $(this).parent().addClass('checked')
+  }
+})
 
 
 $('#shake').click(function(){
