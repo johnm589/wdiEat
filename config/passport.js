@@ -1,9 +1,9 @@
 // require modules and the required parameters to use the facebook-authentication
-var passport        = require('passport'),
-    LocalStrategy   = require('passport-local').Strategy,
-    FacebookStrategy= require('passport-facebook').Strategy,
-    configAuth      = require('./auth.js'),
-    User            = require('../models/User.js')
+var         passport = require('passport'),
+       LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+          configAuth = require('./auth.js'),
+                User = require('../models/User.js')
 
 // store current user's information as a cookie
 passport.serializeUser(function(user, done){
@@ -74,9 +74,8 @@ passport.use(new FacebookStrategy({
       if (err) return done(err)
       if (user){
         return done(null, user)
-      }
-      // if not, then create an account and session
-      else {
+      } else {
+        // if not, then create an account and session
         var newUser = new User()
         newUser.facebook.id = profile.id
         newUser.facebook.token = token
