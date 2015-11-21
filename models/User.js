@@ -21,7 +21,7 @@ var userSchema = new Schema ({
 })
 
 var favoriteSchema = Schema({
-  _owner: {type: Number, ref: 'User'},
+  _owner: {type: Schema.Types.ObjectId, ref: 'User'},
   rating: Number,
   review_count: Number,
   name: String,
@@ -44,5 +44,6 @@ userSchema.methods.validPassword = function(password) {
 
 // create a constructor for user
 var User = mongoose.model('User', userSchema)
+var Favorite = mongoose.model('History', historySchema)
 
 module.exports = User

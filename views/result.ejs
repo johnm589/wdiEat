@@ -27,6 +27,7 @@
 
 <button id="shake-again">Try again</button>
 <a href="/"><button id="back">Back</button></a>
+<button id="like">GOING!</button>
 
 
 
@@ -35,4 +36,29 @@ $('#shake-again').on('click',function(evt){
   location.reload()
 })
 
+$('#like').click(function(){
+  $.ajax({
+    url: '/favorites',
+    method: 'POST',
+    data: {}
+    success: function(data) {
+
+    }
+  })
+})
+
+
+$.ajax({
+  url: '/items',
+  method: 'GET',
+  success: function(data) {
+    console.log(data)
+    data.forEach(function(item){
+      var li = '<li>' + item.item_name + '<button class="glyphicon glyphicon-remove" id="'+item.item_name+ '"></button>' + '</li> '
+      console.log(item)
+      $('.all-items').append(li)
+
+    })
+  }
+})
 </script>
