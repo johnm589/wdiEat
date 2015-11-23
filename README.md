@@ -6,11 +6,11 @@ This app uses the Yelp API to return a random restaurant based on paramaters set
 ##Wireframe
 
 ![GitHub Logo](/readmeImages/wireframe-all.png)
-Format: ![Alt Text](url)
 
 ### HomePage
 
-(Picture of homepage wireframe goes here)
+![GitHub Logo](/readmeImages/wireframe-home.png)
+
 
 The simple home page allows a user to immediatly begin using the WdiEAt app. The user can choose to choose a wide variety of paramaters based on what they feel like eating at the time. This will redirect to a results page that displays a random restaurant based on the users paramaters.
 
