@@ -1,7 +1,6 @@
 <div class = "results-container">
 
 <h1><%= chosen.name %></h1><br>
-<<<<<<< HEAD
 <img style="height: 150px" src="<%= chosen.image_url %>">
 <p><%= chosen.location["display_address"].toString() %></p>
 <span>Category: </span>
@@ -14,13 +13,10 @@
 <% } %>
 <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
 <p>phone-numbe: <%=chosen.display_phone %></p>
-=======
 <img src="<%= chosen.image_url %>" class="results-image">
 
 <div class= "results-info">
 <p>phone-number: <%=chosen.display_phone %></p>
->>>>>>> style
-<p>rating: <%= chosen.rating%> </p>
 <img src=" <%= chosen.rating_img_url %>" class= "review-stars"><br>
   <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
 <iframe
@@ -35,16 +31,8 @@
 <button type="submit" id="shake-again" class="btn btn-warning btn-l">No thanks! Choose Again</button>
 <a href="/"><button class="btn btn-warning btn-l" id="back">Start Over</button></a>
 
-<<<<<<< HEAD
-<button id="shake-again">Try again</button>
-<a href="/"><button id="back">Back</button></a>
-<button id="like">GOING!</button>
-
-
-=======
 </div>
 </div>
->>>>>>> style
 
 <script>
 $('#shake-again').on('click',function(evt){
