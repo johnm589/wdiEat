@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-sm-offset-3">
 
-    <h1>Restaurant Shaker</h1>
+    <h1>What do I eat?</h1>
 
     <form id="search-criteria" action="/result" method="post">
         <div class="form-group">
@@ -9,8 +9,8 @@
         </div>
 
         <div class="form-group">
-          <label>Find</label>
-            <input type="text" id="term" class="form-control" name="term">
+          <label>Search by keyword</label>
+            <input type="text" id="term" class="form-control" name="term" placeholder="burger, pizza, sushi...">
         </div>
           <input type="hidden" id="cll" class="form-control" name="cll">
           <input type="hidden" id="currentCity" class="form-control" name="currentCity">
@@ -101,8 +101,13 @@
           </label>
         </div>
 
-        <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-lg">Locating...</button>
+        <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
         <p id="location-status">Loading Current Location...<p>
+            <p>
+                <button type="button" id="favorite_button" class="btn btn-warning btn-l">
+            <span class="glyphicon glyphicon-heart"></span> My Favorites
+          </button>
+        </p>
     </form>
 
 </div>
@@ -158,7 +163,7 @@ $('document').ready(function(){
       $('#cll').val(latitude+','+longitude)
       $('#location-status').text('Current Location found!')
       $('#shake').removeAttr('disabled')
-      $('#shake').text('Shake!')
+      $('#shake').text('Find Food!')
   }
 
   function error() {
