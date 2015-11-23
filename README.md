@@ -5,7 +5,8 @@ This app uses the Yelp API to return a random restaurant based on paramaters set
 
 ##Wireframe
 
-(Picture of routes wireframe goes here)
+![GitHub Logo](/readmeImages/wireframe-all.png)
+Format: ![Alt Text](url)
 
 ### HomePage
 
