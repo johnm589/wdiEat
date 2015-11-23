@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Passport Authentication Practice</title>
+	<title>wdiEat</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/style.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -9,23 +9,27 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
-
-
 	<% if (user) {%>
-	<div>
-		<h1><%= user.local.name || user.facebook.name %></h1>
-
-		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
+		<div>
+			<h1><%= user.local.name || user.facebook.name %></h1>
+			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+			<a href="/profile" class="btn btn-default btn-sm">Favorites</a>
+			<a href="/" class="btn btn-default btn-sm">Homepage</a>
+		</div>
 	<% } else {%>
-		<div class="text-center  ">
-				<h3>Login or Sign Up:</h3>
+		<div class="text-center">
+			<a href="/session" class="btn btn-default btn-sm">Favorites</a>
+			<a href="/" class="btn btn-default btn-sm">Homepage</a>
+				<!-- <h3>Login or Sign Up:</h3>
 				<a href="/login" class="btn btn-default">Local Login</a>
 				<a href="/signup" class="btn btn-default">Local Signup</a>
 				<hr>
-				<h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
+				<h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4> -->
 		</div>
+
 	<% } %>
+		<hr>
+
 	<div class="container">
 
 		<%- body %>

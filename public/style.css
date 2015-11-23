@@ -1,7 +1,14 @@
-
 .cuisines-container {
   overflow: auto;
   height: 150px;
   overflow-x: hidden;
   border: 1px solid black;
+}
+
+.cuisines-options {
+  display:none;
+}
+
+.checked {
+  background-color: skyblue;
 }
