@@ -44,6 +44,6 @@ userSchema.methods.validPassword = function(password) {
 
 // create a constructor for user
 var User = mongoose.model('User', userSchema)
-var Favorite = mongoose.model('History', historySchema)
+var Favorite = mongoose.model('History', favoriteSchema)
 
 module.exports = User

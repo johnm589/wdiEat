@@ -1,5 +1,5 @@
 <h1><%= chosen.name %></h1><br>
-<img src="<%= chosen.image_url %>">
+<img style="height: 150px" src="<%= chosen.image_url %>">
 <p><%= chosen.location["display_address"].toString() %></p>
 <span>Category: </span>
 <% for (var i = 0; i < chosen.categories.length; i++) { %>
@@ -11,7 +11,6 @@
 <% } %>
 <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
 <p>phone-numbe: <%=chosen.display_phone %></p>
-<p>review count: <%= chosen.review_count %> </p>
 <p>rating: <%= chosen.rating%> </p>
 <img src=" <%= chosen.rating_img_url %>"><br>
   <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
@@ -36,16 +35,15 @@ $('#shake-again').on('click',function(evt){
   location.reload()
 })
 
-$('#like').click(function(){
-  $.ajax({
-    url: '/favorites',
-    method: 'POST',
-    data: {}
-    success: function(data) {
 
-    }
-  })
-})
+// $('#like').on('click', function() {
+//   $.ajax({
+//     url: '/favorites',
+//     method: 'POST',
+//
+//   })
+// })
+
 
 
 $.ajax({
