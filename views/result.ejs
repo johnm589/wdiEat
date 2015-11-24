@@ -1,3 +1,5 @@
+
+
 <h1><%= chosen.name %></h1><br>
 <img id="restaurantImage" src chosen.image_url %>">
 <p><%= chosen.location["display_address"].toString() %></p>
@@ -22,7 +24,11 @@
     src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
    allowfullscreen>
 </iframe><br>
+
+<div id="result"><%=JSON.stringify(chosen) %></div>
+
 <div id="result" style="display: none"><%=JSON.stringify(chosen) %></div>
+
 
 
 <button id="shake-again">Try again</button>
@@ -36,6 +42,7 @@
 $('#shake-again').on('click',function(evt){
   location.reload()
 })
+
 
 
 
@@ -56,10 +63,20 @@ $('#save').on('click', function() {
 
 // if a user is logged in, then  make a POST request to favorites/:user_id
 if (user) {
+
   $.ajax({
     url: '/favorites/'+userId,
     method: 'POST',
     contentType: 'application/json',
+
+ //    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large }),
+ //    success: function(data) {
+ //      console.log('COOL!')
+ //    }
+ //  })
+ //
+ // })
+
     data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
     success: function(data) {
       console.log('COOL!')
@@ -72,6 +89,7 @@ else {
 
 
  })
+
 
 
 
