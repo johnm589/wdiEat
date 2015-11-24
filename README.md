@@ -32,7 +32,7 @@ This page also provides an option to select a random restaurant from their favor
 
 ### Results page
 
-(Picture of results wireframe goes here)
+![GitHub Logo](/readmeImages/wireframe-result.png)
 
 The results page is the main attraction of this app. The results shows a random restaurant based on the inputs of the previous page.
 The results page provides basic information about the website including the name, address and phone number as well as a picture all provided by the Yelp! API.
