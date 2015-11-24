@@ -15,20 +15,21 @@ function create(req, res) {
   favorite.rating_img_url_large = req.body.rating_img_url_large
   favorite._owner = req.body._owner
 
+  favorite.save(function(err){
+    if (err) res.send(err)
+    console.log('favorite saved')
+  })
+
   User.findOne({_id: req.body._owner}, function(err, user) {
     if (err) console.log(err)
     user.favorites.push(favorite)
     user.save(function(err){
       if (err) res.send(err)
-      console.log('user saved')
+      res.redirect('profile', {user: req.user})
     })
-    console.log(user)
   })
 
-  favorite.save(function(err){
-    if (err) res.send(err)
-    console.log('favorite saved')
-  })
+
 }
 
 function index(req,res) {
@@ -39,7 +40,17 @@ function index(req,res) {
     })
 }
 
+function destroy(req,res) {
+  Favorite.remove({_id: req.params.favorite_id},
+    function(err){
+      if (err) {res.send(err)}
+    }
+  )
+}
+
+
 module.exports = {
   createFavorite: create,
-  showMyFavorite: index
+  showMyFavorites: index,
+  deleteFavorite: destroy
 }

@@ -36,9 +36,11 @@ $('#shake-again').on('click',function(evt){
 })
 
 
+
 var favorite = JSON.parse($('#result').text())
 var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
 if ($('#user').text().length !== 0) {
+  var user = JSON.parse($('#user').text())
   var userId = JSON.parse($('#user').text())._id
 }
 
@@ -57,6 +59,7 @@ if (user) {
     data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
     success: function(data) {
       console.log('COOL!')
+
     }
   })
 }
@@ -66,6 +69,7 @@ else {
 
 
  })
+
 
 
 

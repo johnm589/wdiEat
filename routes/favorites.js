@@ -7,6 +7,9 @@ favoriteRouter.route('/favorites')
 
 
 favoriteRouter.route('/myfavorites')
-  .post(favoriteController.showMyFavorite)
+  .post(favoriteController.showMyFavorites)
+
+favoriteRouter.route('/favorite/delete/:favorite_id')
+  .delete(favoriteController.deleteFavorite)
 
 module.exports = favoriteRouter

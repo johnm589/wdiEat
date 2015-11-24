@@ -65,7 +65,7 @@ shakerRouter.post('/result', function(req,res) {
    // make a request to yelp
    request(apiURL, function(error, response, body){
      if (error) {
-       res.render('shaker', {user:req.user, message: req.flash('Cannot make request to API!')})
+       res.render('shaker', {user:req.user, message: req.flash('APIfail','Cannot make request to API!')})
      } else {
        // if the request was successful and the result contains information of at least one restaurant, then pick ONE restaurant randomly from the result
        if (JSON.parse(body)["total"] !== 0) {
@@ -76,7 +76,7 @@ shakerRouter.post('/result', function(req,res) {
            res.render('result', {chosen: chosen, user:req.user, cll: req.body.cll})
        } else {
         // if the request was successful and the result includes 0 restaurants, prompt user to try again
-           res.render('shaker', {user:req.user, message: req.flash('No Result!Try Again')})
+           res.render('shaker', {user:req.user, message: req.flash('NoResult', 'No Result!Try Again')})
            console.log('no result!')
          }
        }
