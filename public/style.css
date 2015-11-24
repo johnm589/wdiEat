@@ -1,8 +1,23 @@
 
-
+@font-face {
+    font-family: hamburgerFont;
+    src: url(../font/HamburgerHeavenNF.ttf);
+}
 body {
     background-image: url("/images/food_icons.png");
     background-size: 800px;
+}
+#canvaslogo{
+  background-color: grey;
+  border-radius: 1000px;
+
+}
+#logo-text{
+  font-size: 40px;
+  position: absolute;
+  margin-top: 80px;
+  margin-left: 35px;
+  float: left;
 }
 
 .container {
@@ -19,6 +34,15 @@ body {
 }
 
 .text-center {
+
+}
+.logo-all{
+  font-family: hamburgerFont;
+  font-size: 50px;
+  float: left;
+  margin-left: 20px;
+  position: absolute;
+  z-index: 100000;
 
 }
 

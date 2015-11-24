@@ -24,7 +24,7 @@ The login page is where the user logs in to enjoy the *Favorites* feature. Here 
 
 ### Favorites page
 
-(Picture of favorites wireframe goes here)
+![GitHub Logo](/readmeImages/wireframe-favorites.png)
 
 The Favorites page can only be accessed by a user that has logged in. This page allows a user to save all of their previous searches.  
 
