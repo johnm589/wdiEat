@@ -78,6 +78,16 @@ body {
 }
 
 .favorite {
-  border: 2px solid grey;
+  border: 2px solid white;
   padding: 5px;
+}
+
+#restaurant-image {
+  width: 500px;
+}
+
+iframe {
+  width: 600px;
+  height: 450px;
+  border: 0px;
 }

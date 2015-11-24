@@ -1,85 +1,64 @@
-
-
 <h1><%= chosen.name %></h1><br>
-<img id="restaurantImage" src chosen.image_url %>">
+<!-- make an img tag to hold the restaurant picture-->
+<img id="restaurant-image" src="">
 <p><%= chosen.location["display_address"].toString() %></p>
 <span>Category: </span>
-<% for (var i = 0; i < chosen.categories.length; i++) { %>
-  <% if (i === 0){ %>
-    <span><%= chosen.categories[i][0] %></span>
-  <% } else {%>
-    <span>,<%= chosen.categories[i][0] %></span>
+  <!-- do a for loop to grab only the first element from every array -->
+  <% for (var i = 0; i < chosen.categories.length; i++) { %>
+    <% if (i === 0){ %>
+      <span><%= chosen.categories[i][0] %></span>
+    <% } else {%>
+      <span>,<%= chosen.categories[i][0] %></span>
     <% } %>
-<% } %>
+  <% } %>
 <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
-<p>phone-numbe: <%=chosen.display_phone %></p>
+<p>phone-number: <%=chosen.display_phone %></p>
 <p>rating: <%= chosen.rating%> </p>
-<img src=" <%= chosen.rating_img_url_large %>"><br>
-  <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
-<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-
-    src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
-   allowfullscreen>
+<img src="<%= chosen.rating_img_url_large %>"><br>
+<!-- Make an iframe to hold the embedded map-->
+<iframe src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
+ allowfullscreen>
 </iframe><br>
-
-
+<!-- Make the result accessible to javascript-->
 <div id="result" style="display: none"><%=JSON.stringify(chosen) %></div>
-
-
-
 <button id="shake-again">Try again</button>
 <a href="/"><button id="back">Back</button></a>
+<!-- If session found, allow user to save the result then redirect them to the profile page -->
 <% if (user) { %>
-<a href="/profile"><button id="save">GOING!</button></a>
+  <a href="/profile"><button id="save">GOING!</button></a>
 <% } %>
 
-
 <script>
-$('#shake-again').on('click',function(evt){
-  location.reload()
-})
+  // reload the page for new result
+  $('#shake-again').on('click',function(evt){
+    location.reload()
+  })
 
+  var favorite = JSON.parse($('#result').text())
+  var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
+  // if session exists, store the user's id into userId
+  if ($('#user').text().length !== 0) {
+    var user = JSON.parse($('#user').text())
+    var userId = JSON.parse($('#user').text())._id
+  }
 
+  // get the image_url of the result and replace ms.jpg with o.jpg to get a larger image
+  var imageURL = favorite.image_url.replace('ms.jpg', 'o.jpg')
+  $('#restaurant-image').attr('src', imageURL)
 
-
-var favorite = JSON.parse($('#result').text())
-var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
-if ($('#user').text().length !== 0) {
-  var user = JSON.parse($('#user').text())
-  var userId = JSON.parse($('#user').text())._id
-}
-
-// get the image_url and replace ms.jpg with o.jpg
-var imageURL = favorite.image_url.replace('ms.jpg', 'o.jpg')
-$('#restaurantImage').attr('src', imageURL)
-
-
-$('#save').on('click', function() {
-
-
-// if a user is logged in, then  make a POST request to favorites/:user_id
-if (user) {
-  $.ajax({
-    url: '/favorites/'+userId,
-    method: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
-    success: function(data) {
-      console.log('COOL!')
+  $('#save').on('click', function() {
+    // if a user is logged in, then  make a POST request to favorites/:user_id
+    if (user) {
+      $.ajax({
+        url: '/favorites/'+userId, // make a post request to create a favorite and attache it to the current user
+        method: 'POST',
+        contentType: 'application/json',
+        // pass the information to be saved into the new Favorite object
+        data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
+        success: function(data) {
+          console.log('COOL!')
+        }
+      })
     }
   })
-}
-else {
-  console.log('Signup&LogIn')
-  }
-})
-
-
-
-
-
-
 </script>
