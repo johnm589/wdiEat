@@ -1,7 +1,24 @@
+
+@font-face {
+    font-family: hamburgerFont;
+    src: url(../font/HamburgerHeavenNF.ttf);
+}
 body {
     background-image: url("/images/food_icons.png");
     background-size: 800px;
     font-family: Open Sans, Helvetica, sans-serif;;
+}
+#canvaslogo{
+  background-color: grey;
+  border-radius: 1000px;
+
+}
+#logo-text{
+  font-size: 40px;
+  position: absolute;
+  margin-top: 80px;
+  margin-left: 35px;
+  float: left;
 }
 
 .container {
@@ -23,6 +40,15 @@ body {
 }
 
 .text-center {
+
+}
+.logo-all{
+  font-family: hamburgerFont;
+  font-size: 50px;
+  float: left;
+  margin-left: 20px;
+  position: absolute;
+  z-index: 100000;
 
 }
 
@@ -77,7 +103,27 @@ h1 {
     background-position: center center;
     background-repeat: no-repeat;
 }
+a:hover, a:active {
+    color: #ffdd8f;
+    text-decoration: none;
+    border-bottom: 1px solid #ffdd8f;
+}
+.favorite {
+  border: 2px solid grey;
+  padding: 5px;
+}
 
+a {
+    color: #ffa31a;
+    transition: all .2s ease;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+}
+
+.header {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
 .results-info {
     font-size: 18px;
 }
@@ -92,22 +138,4 @@ h1 {
 
 .checked {
   background-color: skyblue;
-}
-
-a:hover, a:active {
-    color: #ffdd8f;
-    text-decoration: none;
-    border-bottom: 1px solid #ffdd8f;
-}
-
-a {
-    color: #ffa31a;
-    transition: all .2s ease;
-    border-bottom: 1px solid transparent;
-    text-decoration: none;
-}
-
-.header {
-    margin-bottom: 20px;
-    margin-top: 10px;
 }

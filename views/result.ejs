@@ -5,14 +5,13 @@
         <img src=" <%= chosen.rating_img_url_large %>">
     </div>
 
-    <% for (var i = 0; i < chosen.categories.length; i++) { %>
-      <% if (i === 0){ %>
-        <span><%= chosen.categories[i][0] %></span>
-      <% } else {%>
-        <span>,<%= chosen.categories[i][0] %></span>
-        <% } %>
+<% for (var i = 0; i < chosen.categories.length; i++) { %>
+  <% if (i === 0){ %>
+    <span><%= chosen.categories[i][0] %></span>
+  <% } else {%>
+    <span>,<%= chosen.categories[i][0] %></span>
     <% } %>
-    <br><br>
+<% } %>
 
 
     <div class="restaurant-image-container" style="background-image: url(<%= chosen.image_url.replace('ms.jpg', 'o.jpg') %>)"></div>
@@ -42,16 +41,20 @@
 </div>
 
 
-
-
 <script>
 $('#shake-again').on('click',function(evt){
   location.reload()
 })
 
 
+
+
 var favorite = JSON.parse($('#result').text())
 var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
+if ($('#user').text().length !== 0) {
+  var user = JSON.parse($('#user').text())
+  var userId = JSON.parse($('#user').text())._id
+}
 
 // get the image_url and replace ms.jpg with o.jpg
 var imageURL = favorite.image_url.replace('ms.jpg', 'o.jpg')
@@ -60,15 +63,37 @@ $('#restaurantImage').attr('src', imageURL)
 
 $('#save').on('click', function() {
 
+
+// if a user is logged in, then  make a POST request to favorites/:user_id
+if (user) {
+
   $.ajax({
-    url: '/favorites',
+    url: '/favorites/'+userId,
     method: 'POST',
     contentType: 'application/json',
-    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large }),
+
+ //    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large }),
+ //    success: function(data) {
+ //      console.log('COOL!')
+ //    }
+ //  })
+ //
+ // })
+
+    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
     success: function(data) {
       console.log('COOL!')
     }
   })
+}
+else {
+  console.log('Signup&LogIn')
+}
+
 
  })
+
+
+
+
 </script>
