@@ -2,11 +2,13 @@
 <html>
 <head>
 	<title>wdiEat</title>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
 	<% if (user) {%>
@@ -17,7 +19,7 @@
 			<a href="/" class="btn btn-default btn-sm">Homepage</a>
 		</div>
 	<% } else {%>
-		<div class="text-center">
+		<div class="text-center header">
 			<a href="/session" class="btn btn-default btn-sm">Favorites</a>
 			<a href="/" class="btn btn-default btn-sm">Homepage</a>
 				<!-- <h3>Login or Sign Up:</h3>
@@ -28,7 +30,6 @@
 		</div>
 
 	<% } %>
-		<hr>
 
 	<div class="container">
 

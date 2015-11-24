@@ -1,13 +1,19 @@
 body {
     background-image: url("/images/food_icons.png");
     background-size: 800px;
+    font-family: Open Sans, Helvetica, sans-serif;;
 }
 
 .container {
     border: 1px solid black;
-    background-color: grey;
-    width: 600px;
+    width: 700px;
 
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(245,245,245,1)), color-stop(0%, rgba(0,0,0,1)), color-stop(0%, rgba(92,92,92,1)), color-stop(0%, rgba(138,138,138,1)), color-stop(83%, rgba(56,56,56,1)), color-stop(89%, rgba(56,56,56,1)), color-stop(100%, rgba(56,56,56,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#383838', GradientType=0 );
 }
 
 .cuisines-container {
@@ -25,14 +31,51 @@ body {
 }
 
 .results-container {
-    width: 550px;
-    color: black;
-    font-weight: bold;
+    width: 100%;
+    color: #fff;
 }
 
-.results-image {
-    width: 300px;
+.results-container button {
+    border-radius: 4px;
+    color: #000;
+    background: #ffa33a;
+    border: 0;
+    transition: all .5s ease;
+}
+.results-container button:hover {
+    background: #ffc52d;
+}
+
+.restaurant-buttons {
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-weight: 100;
+}
+
+.restaurant-title h1 {
+    float: left;
+    margin: 0;
+}
+
+.restaurant-title img {
+    margin-top: 5px;
+    float: right;
+    height: 20px;
+}
+
+.restaurant-title {
+    margin-top: 20px;
+    margin-bottom: 2px;
+}
+
+.restaurant-image-container {
+    width: 100%;
+    background-size: cover;
     height: 300px;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .results-info {
@@ -49,4 +92,22 @@ body {
 
 .checked {
   background-color: skyblue;
+}
+
+a:hover, a:active {
+    color: #ffdd8f;
+    text-decoration: none;
+    border-bottom: 1px solid #ffdd8f;
+}
+
+a {
+    color: #ffa31a;
+    transition: all .2s ease;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+}
+
+.header {
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
