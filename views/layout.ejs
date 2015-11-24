@@ -10,8 +10,13 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
+	<div class="logo">
+<div>
+		WDIEat?
+</div>
+	</div>
 	<% if (user) {%>
-		<div>
+		<div class = "text-center">
 			<h1><%= user.local.name || user.facebook.name %></h1>
 			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 			<a href="/profile" class="btn btn-default btn-sm">Favorites</a>

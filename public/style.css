@@ -1,5 +1,8 @@
 
-
+@font-face {
+    font-family: hamburgerFont;
+    src: url(../font/HamburgerHeavenNF.ttf);
+}
 body {
     background-image: url("/images/food_icons.png");
     background-size: 800px;
@@ -19,6 +22,14 @@ body {
 }
 
 .text-center {
+
+}
+.logo{
+  font-family: hamburgerFont;
+  font-size: 50px;
+  float: left;
+  margin-left: 20px;
+  position: absolute;
 
 }
 
