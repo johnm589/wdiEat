@@ -8,8 +8,8 @@ if ($('#user').text().length !== 0) {
 }
 
 $.ajax({
-  method: 'POST',
-  url: '/myfavorites',
+  method: 'GET',
+  url: '/favorites/'+userId,
   data: {userId: userId},
   success: function(data) {
     data.forEach(function(favorite) {

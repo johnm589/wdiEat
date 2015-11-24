@@ -15,6 +15,7 @@
 			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 			<a href="/profile" class="btn btn-default btn-sm">Favorites</a>
 			<a href="/" class="btn btn-default btn-sm">Homepage</a>
+			<!-- Make it convenient to grab user's id in views through javascript -->
 			<div id="user" style="display: none"><% if (user) {%><%= JSON.stringify(user) %><%} %></div>
 		</div>
 	<% } else {%>
