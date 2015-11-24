@@ -36,11 +36,10 @@ function index(req,res) {
     if (err) console.log(err)
     console.log(favorites.length)
       res.json(favorites)
-
     })
 }
 
 module.exports = {
   createFavorite: create,
-  showAllFavorite: index
+  showMyFavorite: index
 }

@@ -19,7 +19,7 @@ var shakerRoutes = require('./routes/shakers.js')
 var favoriteRoutes = require('./routes/favorites.js')
 
 // mongoose connection
-mongoose.connect('mongodb://localhost/passport-authentication', function(err){
+mongoose.connect('mongodb://localhost/wdiEat', function(err){
 	if(err) return console.log('Cannot connect :(')
 	console.log('Connected to MongoDB. Sweet!')
 })

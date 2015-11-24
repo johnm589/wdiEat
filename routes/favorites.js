@@ -3,10 +3,10 @@ favoriteController = require('../controllers/favorite_controller'),
     favoriteRouter = express.Router()
 
 favoriteRouter.route('/favorites')
-  .get(favoriteController.showAllFavorite)
   .post(favoriteController.createFavorite)
 
 
-
+favoriteRouter.route('/myfavorites')
+  .post(favoriteController.showMyFavorite)
 
 module.exports = favoriteRouter
