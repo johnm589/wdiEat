@@ -4,7 +4,8 @@
     src: url(../font/HamburgerHeavenNF.ttf);
 }
 body {
-    background-image: url("/images/food_icons.png");
+    /*background-image: url("/images/food_icons.png");*/
+    background-color: black;
     background-size: 800px;
     font-family: Open Sans, Helvetica, sans-serif;;
 }
