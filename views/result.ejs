@@ -33,7 +33,9 @@
 
 <button id="shake-again">Try again</button>
 <a href="/"><button id="back">Back</button></a>
-<button id="save">GOING!</button>
+<% if (user) { %>
+<a href="/profile"><button id="save">GOING!</button></a>
+<% } %>
 
 
 <script>
@@ -59,10 +61,11 @@ $('#restaurantImage').attr('src', imageURL)
 $('#save').on('click', function() {
 
 
+// if a user is logged in, then  make a POST request to favorites/:user_id
 if (user) {
 
   $.ajax({
-    url: '/favorites',
+    url: '/favorites/'+userId,
     method: 'POST',
     contentType: 'application/json',
 
@@ -77,7 +80,6 @@ if (user) {
     data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
     success: function(data) {
       console.log('COOL!')
-
     }
   })
 }

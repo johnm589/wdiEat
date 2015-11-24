@@ -54,7 +54,6 @@ userRouter.get('/session', function(req, res) {
     res.render('session', {user: req.user})
 })
 
-
 // middleware; if authentication was successful, invoke next; otherwise, redirect to root
 function isLoggedIn(req,res,next) {
   if (req.isAuthenticated()) return next()

@@ -29,7 +29,7 @@ userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password)
 }
 
-// create a constructor for user
+// create a constructor for User
 var User = mongoose.model('User', userSchema)
 
 module.exports = User

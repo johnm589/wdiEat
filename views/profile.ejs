@@ -8,13 +8,13 @@ if ($('#user').text().length !== 0) {
 }
 
 $.ajax({
-  method: 'POST',
-  url: '/myfavorites',
+  method: 'GET',
+  url: '/favorites/'+userId,
   data: {userId: userId},
   success: function(data) {
     data.forEach(function(favorite) {
 
-      var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ favorite.categories +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><button class="deleteFavorite" id="' + favorite._id + '">Delete</button>'
+      var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ favorite.categories +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><a href="/profile"><button class="deleteFavorite" id="' + favorite._id + '">Delete</button></a>'
       $('.favorites').append(entry)
 
       $delete = $('#'+favorite._id)
