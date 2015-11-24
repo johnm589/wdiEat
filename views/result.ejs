@@ -27,7 +27,9 @@
 
 <button id="shake-again">Try again</button>
 <a href="/"><button id="back">Back</button></a>
-<button id="save">GOING!</button>
+<% if (user) { %>
+<a href="/profile"><button id="save">GOING!</button></a>
+<% } %>
 
 
 <script>
