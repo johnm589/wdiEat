@@ -142,14 +142,23 @@ $('.cuisines-options').click(function(){
 
 
 $('#shake').click(function(){
-  
-   if ($('#location').val() === "" && current) {
+  // Logo Move
+
+
+  if ($('#location').val() === "" && current) {
           $('#location').val(current)
         }
+$(document).ready(function(e) {
+  width = "+=" + $(document).width();
+            $(".logo-all").animate({
+            left: width
+          }, 800, function() {
   if ($('#cll').val() === ""){
       $('#cll').val(cll)
   }
       })
+    })
+  })
 
 
 $('document').ready(function(){
