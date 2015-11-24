@@ -9,27 +9,14 @@ var userSchema = new Schema ({
     name: String,
     email: String,
     password: String,
-    favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
   },
   facebook: {
     id: String,
     name: String,
     token: String, // check if the user has authorized
     email: String,
-    favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
-  }
-})
-
-var favoriteSchema = Schema({
-  _owner: {type: Schema.Types.ObjectId, ref: 'User'},
-  rating: Number,
-  review_count: Number,
-  name: String,
-  url: String,
-  display_phone: String,
-  address: String,
-  categories: Array,
-  image_url: String
+  },
+  favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
 })
 
 // generate an encrypted password
@@ -44,6 +31,5 @@ userSchema.methods.validPassword = function(password) {
 
 // create a constructor for user
 var User = mongoose.model('User', userSchema)
-var Favorite = mongoose.model('History', favoriteSchema)
 
 module.exports = User
