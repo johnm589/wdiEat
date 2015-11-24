@@ -1,54 +1,58 @@
-var Favorite = require('../models/Favorite.js')
-var User = require('../models/User.js')
+// require the schema & model
+var Favorite = require('../models/Favorite.js'),
+        User = require('../models/User.js')
 
+// create a new favorite entry
 function create(req, res) {
-  console.log('Trying to SAVE my favorite')
+  // instantiate an object from Favorite
   var favorite = new Favorite()
 
+  // set the properties using the values passed in from the ajax request (using "data" that ajax provides for the POST method)
   favorite.name = req.body.name
   favorite.rating = req.body.rating
   favorite.url = req.body.url
   favorite.display_phone = req.body.display_phone
   favorite.address = req.body.address
-  favorite.categories = req.body.categories
+  favorite.categories = req.body.categories // array
   favorite.image_url = req.body.image_url
   favorite.rating_img_url_large = req.body.rating_img_url_large
-  favorite._owner = req.body._owner
+  favorite._owner = req.body._owner // setting reference to the user
 
+  // save favorite
   favorite.save(function(err){
     if (err) res.send(err)
-    console.log('favorite saved')
   })
 
-  User.findOne({_id: req.body._owner}, function(err, user) {
+  // find the current user object
+  User.findOne({_id: req.params.user_id}, function(err, user) {
+    // User.findOne returns AN OBJECT
     if (err) console.log(err)
-    user.favorites.push(favorite)
-    user.save(function(err){
+    user.favorites.push(favorite) // save THIS entry to user's favorites
+    user.save(function(err){ // save the change
       if (err) res.send(err)
-      res.redirect('profile', {user: req.user})
     })
   })
-
-
 }
 
+// display all the saved entry belong to the user currently logged in
 function index(req,res) {
-  Favorite.find({_owner: req.body.userId},function(err, favorites) {
+  Favorite.find({_owner: req.params.user_id},function(err, favorites) {
+    // Favorite.find returns AN ARRAY of objects
     if (err) console.log(err)
-    console.log(favorites.length)
-      res.json(favorites)
+      res.json(favorites) // return the results found as a json
     })
 }
 
+// delete the saved entry
 function destroy(req,res) {
-  Favorite.remove({_id: req.params.favorite_id},
+  Favorite.remove({_id: req.params.favorite_id}, // find the saved entry using id
     function(err){
       if (err) {res.send(err)}
     }
   )
 }
 
-
+// export the modules
 module.exports = {
   createFavorite: create,
   showMyFavorites: index,

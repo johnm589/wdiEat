@@ -1,8 +1,10 @@
-var   mongoose = require('mongoose'),
-        Schema = mongoose.Schema
+// require mongoose to create Schema
+var  mongoose = require('mongoose'),
+       Schema = mongoose.Schema
 
+// create a schema for the Favorite model
 var favoriteSchema = Schema({
-  _owner: {type: Schema.Types.ObjectId, ref: 'User'},
+  _owner: {type: Schema.Types.ObjectId, ref: 'User'}, // reference to user
   rating: Number,
   name: String,
   url: String,
@@ -13,6 +15,7 @@ var favoriteSchema = Schema({
   rating_img_url_large: String,
 })
 
+// create a constructor for Favorite
 var Favorite = mongoose.model('Favorite', favoriteSchema)
 
 module.exports = Favorite
