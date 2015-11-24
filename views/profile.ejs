@@ -1,22 +1,21 @@
+<div class="favorites">
 
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div class="well">
-
-            <% if (user.facebook.id)  { %>
-            <h3>Facebook User</h3>
-            <% } else { %>
-            <h3>Locally Stored User</h3>
-            <% } %>
-            <p>
-                <strong>Name</strong>: <%= user.local.name || user.facebook.name %><br>
-                <strong>id</strong>: <%= user._id || user.facebook._id %><br>
-                <strong>email</strong>: <%= user.local.email || user.facebook.email %><br>
-                <strong>password</strong>: <%= user.local.password || user.facebook.token %>
-            </p>
-
-
-
-        </div>
-    </div>
 </div>
+
+<script>
+if ($('#user').text().length !== 0) {
+  var userId = JSON.parse($('#user').text())._id
+}
+
+$.ajax({
+  method: 'GET',
+  url: '/favorites',
+  data: {userId: userId},
+  success: function(data) {
+    data.forEach(function(favorite) {
+      var entry = '<div>' + JSON.stringify(favorite) + '</div><br><br<br>'
+      $('.favorites').append(entry)
+    })
+  }
+})
+</script>

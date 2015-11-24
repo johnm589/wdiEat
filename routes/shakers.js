@@ -61,7 +61,7 @@ shakerRouter.post('/result', function(req,res) {
     // combine the url with the search parameters and authentication information into one string
     var apiURL = url+'?'+paramURL
 
-    console.log(apiURL)
+    // console.log(apiURL)
    // make a request to yelp
    request(apiURL, function(error, response, body){
      if (error) {

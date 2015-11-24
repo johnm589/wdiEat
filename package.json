@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "querystring": "^0.2.0",
     "request": "^2.67.0",
+    "window-popup": "^1.0.1",
     "yelp": "^1.0.0"
   }
 }

@@ -1,4 +1,4 @@
-// require modules 
+// require modules
 var passportConfig = require('./config/passport.js')
 				ejsLayouts = require('express-ejs-layouts'),
 							 ejs = require('ejs'),
@@ -16,6 +16,7 @@ var passportConfig = require('./config/passport.js')
 // require routes
 var userRoutes = require('./routes/users.js')
 var shakerRoutes = require('./routes/shakers.js')
+var favoriteRoutes = require('./routes/favorites.js')
 
 // mongoose connection
 mongoose.connect('mongodb://localhost/passport-authentication', function(err){
@@ -55,6 +56,7 @@ app.get('/', function(req,res){
 // use routes
 app.use('/', userRoutes)
 app.use('/', shakerRoutes)
+app.use('/', favoriteRoutes)
 
 // start the server on port
 app.listen(port, function(){
