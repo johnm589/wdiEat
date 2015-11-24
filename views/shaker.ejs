@@ -1,3 +1,5 @@
+
+
 <div class="col-sm-6 col-sm-offset-3">
 
     <h1>What do I eat?</h1>
@@ -101,17 +103,18 @@
           </label>
         </div>
 
-        <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
-        <p id="location-status">Loading Current Location...<p>
-            <p>
-                <button type="button" id="favorite_button" class="btn btn-warning btn-l">
-            <span class="glyphicon glyphicon-heart"></span> My Favorites
-          </button>
-        </p>
-    </form>
-
+        <div class="shake-chunk">
+                <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
+              </div>
+                <p id="location-status">Loading Current Location...<p>
+                    <p>
+                        <button type="button" id="favorite_button" class="btn btn-warning btn-l">
+                    <span class="glyphicon glyphicon-heart"></span> My Favorites
+                  </button>
+                </p>
+              </div>
+            </form>
 </div>
-
 <script>
 
 var latitude;
@@ -139,7 +142,7 @@ $('.cuisines-options').click(function(){
 
 
 $('#shake').click(function(){
-
+  
    if ($('#location').val() === "" && current) {
           $('#location').val(current)
         }

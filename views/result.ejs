@@ -1,9 +1,10 @@
-<div class = "results-container">
+<div class="results-container">
 
-<h1><%= chosen.name %></h1><br>
-<img style="height: 150px" src="<%= chosen.image_url %>">
-<p><%= chosen.location["display_address"].toString() %></p>
-<span>Category: </span>
+    <div class="restaurant-title clearfix">
+        <h1><%= chosen.name %></h1>
+        <img src=" <%= chosen.rating_img_url_large %>">
+    </div>
+
 <% for (var i = 0; i < chosen.categories.length; i++) { %>
   <% if (i === 0){ %>
     <span><%= chosen.categories[i][0] %></span>
@@ -11,28 +12,34 @@
     <span>,<%= chosen.categories[i][0] %></span>
     <% } %>
 <% } %>
-<p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
-<p>phone-numbe: <%=chosen.display_phone %></p>
-<img src="<%= chosen.image_url %>" class="results-image">
 
-<div class= "results-info">
-<p>phone-number: <%=chosen.display_phone %></p>
-<img src=" <%= chosen.rating_img_url %>" class= "review-stars"><br>
-  <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
-<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
 
-    src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
-   allowfullscreen>
-</iframe><br>
+    <div class="restaurant-image-container" style="background-image: url(<%= chosen.image_url.replace('ms.jpg', 'o.jpg') %>)"></div>
 
-<button type="submit" id="shake-again" class="btn btn-warning btn-l">No thanks! Choose Again</button>
-<a href="/"><button class="btn btn-warning btn-l" id="back">Start Over</button></a>
+    <p>phone-number: <%=chosen.display_phone %></p>
+    <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
 
+
+    <p><%= chosen.location["display_address"].toString() %></p>
+    <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
+
+    <div class="restaurant-buttons">
+        <button id="shake-again">Try again</button>
+        <a href="/"><button id="back">Back</button></a>
+        <button id="save">GOING!</button>
+    </div>
+
+    <iframe
+      width="100%"
+      height="450"
+      frameborder="0"
+      style="border:0"
+      src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
+      allowfullscreen>
+    </iframe><br>
+    <!--div id="result"><%=JSON.stringify(chosen) %></div-->
 </div>
-</div>
+
 
 <script>
 $('#shake-again').on('click',function(evt){
@@ -40,27 +47,53 @@ $('#shake-again').on('click',function(evt){
 })
 
 
-// $('#like').on('click', function() {
-//   $.ajax({
-//     url: '/favorites',
-//     method: 'POST',
-//
-//   })
-// })
+
+
+var favorite = JSON.parse($('#result').text())
+var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
+if ($('#user').text().length !== 0) {
+  var user = JSON.parse($('#user').text())
+  var userId = JSON.parse($('#user').text())._id
+}
+
+// get the image_url and replace ms.jpg with o.jpg
+var imageURL = favorite.image_url.replace('ms.jpg', 'o.jpg')
+$('#restaurantImage').attr('src', imageURL)
+
+
+$('#save').on('click', function() {
+
+
+// if a user is logged in, then  make a POST request to favorites/:user_id
+if (user) {
+
+  $.ajax({
+    url: '/favorites/'+userId,
+    method: 'POST',
+    contentType: 'application/json',
+
+ //    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large }),
+ //    success: function(data) {
+ //      console.log('COOL!')
+ //    }
+ //  })
+ //
+ // })
+
+    data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
+    success: function(data) {
+      console.log('COOL!')
+    }
+  })
+}
+else {
+  console.log('Signup&LogIn')
+}
+
+
+ })
 
 
 
-$.ajax({
-  url: '/items',
-  method: 'GET',
-  success: function(data) {
-    console.log(data)
-    data.forEach(function(item){
-      var li = '<li>' + item.item_name + '<button class="glyphicon glyphicon-remove" id="'+item.item_name+ '"></button>' + '</li> '
-      console.log(item)
-      $('.all-items').append(li)
 
-    })
-  }
-})
 </script>

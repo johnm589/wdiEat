@@ -24,7 +24,7 @@ The login page is where the user logs in to enjoy the *Favorites* feature. Here 
 
 ### Favorites page
 
-(Picture of favorites wireframe goes here)
+![GitHub Logo](/readmeImages/wireframe-favorites.png)
 
 The Favorites page can only be accessed by a user that has logged in. This page allows a user to save all of their previous searches.  
 
@@ -32,7 +32,7 @@ This page also provides an option to select a random restaurant from their favor
 
 ### Results page
 
-(Picture of results wireframe goes here)
+![GitHub Logo](/readmeImages/wireFrame-Result.png)
 
 The results page is the main attraction of this app. The results shows a random restaurant based on the inputs of the previous page.
 The results page provides basic information about the website including the name, address and phone number as well as a picture all provided by the Yelp! API.
