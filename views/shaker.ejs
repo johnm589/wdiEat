@@ -142,7 +142,7 @@ $('.cuisines-options').click(function(){
 
 
 $('#shake').click(function(){
-  
+
    if ($('#location').val() === "" && current) {
           $('#location').val(current)
         }
@@ -171,11 +171,10 @@ $('document').ready(function(){
 
   function error() {
     $('#location-status').text('Current Location Service Disabled (Notes: This would affect the accuracy of result)')
+    $('#shake').text('Find Food!')
     $('#shake').removeAttr('disabled')
 
   }
-
-
 })
 
 
