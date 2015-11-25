@@ -26,7 +26,7 @@ userSchema.methods.generateHash = function(password){
 
 // compare the password entered with the password stored in this user
 userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password)
+  return bcrypt.compareSync(password, this.local.password)
 }
 
 // create a constructor for User

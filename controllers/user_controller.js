@@ -6,10 +6,10 @@ function edit(req, res) {
   User.findOne({_id: req.body.id}).select('name email password').exec(function(err, user){
     if (err) {console.log(err)}
     else {
-      user.name = req.body.name
-      user.email = req.body.email
+      user.local.name = req.body.name
+      user.local.email = req.body.email
       if (req.body.password !== "") { // only encrypt the password if there was a value in the password field
-        user.password = user.generateHash(req.body.password) // save the new encrypted password
+        user.local.password = user.generateHash(req.body.password) // save the new encrypted password
       }
       user.save(function(err){ // save the change
         if (err) res.send(err)
