@@ -1,0 +1,34 @@
+<% if (messages.length > 0) {%>
+<p>Message: <%= messages %></p>
+  <% } %>
+
+<form action="/profile/<%= user.id%>/edit" method="post">
+    <input type="hidden" name="id" value="<%= user.id%>">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" name="name" value="<%= user.local.name%>" required>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" name="email" value="<%= user.local.email %>" required>
+    </div>
+    <div class="form-group">
+        <label>New Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="New Password">
+    </div>
+    <div class="form-group">
+        <label>Password Confirmation</label>
+        <input type="password" class="form-control" id="password-confirmation" name="password-confirmation" placeholder="Confirm Your New Password">
+    </div>
+
+
+    <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+</form>
+<script>
+  $('form').on('submit',function(){
+    if ($('#password').val() !== $('#password-confirmation').val()) {
+      alert('New password does not match password confirmation')
+      return false
+    }
+  })
+</script>

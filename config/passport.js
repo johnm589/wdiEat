@@ -3,7 +3,8 @@ var         passport = require('passport'),
        LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
           configAuth = require('./auth.js'),
-                User = require('../models/User.js')
+                User = require('../models/User.js'),
+            Favorite = require('../models/Favorite.js')
 
 // store current user's information as a cookie
 passport.serializeUser(function(user, done){
@@ -25,20 +26,25 @@ passport.use('local-signup', new LocalStrategy({
 },
   function(req, email, password, done) {
     // check if email is already taken
-    User.findOne({'local.email': email}, function(err, user) {
-      if(err) return done(err)
+    User.findOne({'email': email}, function(err, user) {
+      if(err) {return done(err)}
       // if it is, inform user that the email is already taken and exit the function
-      if(user) return done(null, false, req.flash('signupMessage','That email is already taken.'))
+      if(user) {return done(null, false)}
       // if not, create a user and save it to the database
-      var newUser = new User()
-      newUser.local.name = req.body.name
-      newUser.local.email = email
-      newUser.local.password = newUser.generateHash(password)
+      else {
+        var newUser = new User()
+        newUser.local.name = req.body.name
+        newUser.local.email = email
+        newUser.local.password = newUser.generateHash(password) // encrypt password
 
-      newUser.save(function(err){
-        if (err) throw err
-        return done(null, newUser)
-      })
+        newUser.save(function(err){
+          if (err) {throw err}
+          else {
+            // saveEntry(req.body.saved, newUser) // save the entry to THIS user's favorites
+            return done(null, newUser)
+          }
+        })
+      }
     })
   }
 ))
@@ -89,5 +95,21 @@ passport.use(new FacebookStrategy({
       }
     })
 }))
+
+// // create a function to save an entry to a user's account once the user signed up or logged in
+// function saveEntry(entryId, user){
+//   if (entryId !== undefined) {
+//     Favorite.findOne({id: entryId}, function(err, favorite) {
+//       favorite._owner = user._id // set the owner
+//       favorite.save(function(err) {
+//         if (err) res.send(err)
+//       })
+//       user.favorites.push(favorite) // push the saved entry to user's favorites
+//       user.save(function(err) {
+//         if (err) res.send(err)
+//       })
+//     })
+//   }
+// }
 
 module.exports = passport
