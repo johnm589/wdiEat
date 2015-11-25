@@ -26,15 +26,15 @@ passport.use('local-signup', new LocalStrategy({
 },
   function(req, email, password, done) {
     // check if email is already taken
-    User.findOne({'local.email': email}, function(err, user) {
+    User.findOne({'email': email}, function(err, user) {
       if(err) return done(err)
       // if it is, inform user that the email is already taken and exit the function
       if(user) return done(null, false, req.flash('signupMessage','That email is already taken.'))
       // if not, create a user and save it to the database
       var newUser = new User()
-      newUser.local.name = req.body.name
-      newUser.local.email = email
-      newUser.local.password = newUser.generateHash(password)
+      newUser.name = req.body.name
+      newUser.email = email
+      newUser.password = newUser.generateHash(password)
 
       newUser.save(function(err){
         if (err) {throw err}
@@ -54,7 +54,7 @@ passport.use('local-login', new LocalStrategy({
   passReqToCallback: true
 }, function(req, email, password, done) {
   // check if a user with the email specified exists in the database
-  User.findOne({'local.email': email}, function(err, user) {
+  User.findOne({'email': email}, function(err, user) {
     if (err) throw err
     // if no user was found, inform the user and exit the function
     if (!user) return done(null, false, req.flash('loginMessage', 'No User Found.'))
@@ -64,43 +64,6 @@ passport.use('local-login', new LocalStrategy({
     saveEntry(req.body.saved, user)
     return done(null, user)
   })
-}))
-
-// create a facebook-user using passport & passport-facebook
-passport.use(new FacebookStrategy({
-  clientID: configAuth.facebookAuth.clientID,
-  clientSecret: configAuth.facebookAuth.clientSecret,
-  callbackURL: configAuth.facebookAuth.callbackURL,
-  profileFields: configAuth.facebookAuth.profileFields,
-  passReqToCallback: true
-  },
-  function (req, token, refreshToken, profile, done){
-    // check if the user with this facebook acount has already created an account;
-    // if yes, then login
-    User.findOne({'facebook.id': profile.id}, function(err, user) {
-      if (err) return done(err)
-      if (user){
-
-        // saveEntry(req.body.saved, user)
-        return done(null, user)
-      } else {
-        // if not, then create an account and session
-        var newUser = new User()
-        newUser.facebook.id = profile.id
-        newUser.facebook.token = token
-        newUser.facebook.name = profile.displayName
-        newUser.facebook.email = profile.emails[0].value
-
-        newUser.save(function(err){
-          if (err) {throw err}
-          else {
-            // saveEntry(req.body.saved, NewUser)
-            return done(null, newUser)
-          }
-
-        })
-      }
-    })
 }))
 
 function saveEntry(entryId, user){

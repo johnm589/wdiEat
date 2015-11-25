@@ -12,9 +12,17 @@
     method: 'GET',
     url: '/favorites/'+userId, // get all the saved entries from the current user
     success: function(data) {
+
       // append each of the entry to favorites
       data.forEach(function(favorite) {
-        var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ favorite.categories +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><button class="deleteFavorite" id="' + favorite._id + '">Delete</button>'
+        var categories = []
+        var categoriesArray = favorite.categories
+
+        for (var i = 0; i < categoriesArray.length; i++) {
+          categories.push(" "+ categoriesArray[i][0])
+        }
+
+        var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ categories.toString() +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><button class="deleteFavorite" id="' + favorite._id + '">Delete</button>'
         $('#favorites').append(entry)
 
         $delete = $('#'+favorite._id) // select the delete button by id

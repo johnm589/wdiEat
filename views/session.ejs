@@ -18,19 +18,6 @@
     </form>
     <hr>
 
-    <% if (JSON.stringify(query) !== "{}") { %>
-      <form action="/auth/facebook?saved=<%=query.favoriteId.toString()%>" method="post">
-    <% } else {%>
-      <form action="/auth/facebook" method="post">
-    <% } %>
-
-      <% if (JSON.stringify(query) !== "{}") { %>
-        <input type="hidden" class="favoriteId" name="saved" value=<%= query.favoriteId.toString() %>>
-      <% } %>
-      <button type="submit" id="facebook-login" class="btn btn-primary btn-lg">Facebook</button>
-    </form>
-
-
   </div>
   <div class="col-xs-6">
     <h1>Sign Up</h1>
@@ -58,8 +45,3 @@
   </div>
 
 </div>
-<script>
-$('#facebook-login').on('click', function(){
-      $('#temp-entry-holder').text('HEY')
-})
-</script>

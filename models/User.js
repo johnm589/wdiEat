@@ -5,17 +5,9 @@ var   mongoose = require('mongoose'),
 
 // create a user schema
 var userSchema = new Schema ({
-  local: {
     name: String,
     email: {type: String, require: true, unique: true},
     password: {type: String, require:true},
-  },
-  facebook: {
-    id: String,
-    name: String,
-    token: String, // check if the user has authorized
-    email: String,
-  },
   favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
 })
 
@@ -26,7 +18,7 @@ userSchema.methods.generateHash = function(password){
 
 // compare the password entered with the password stored in this user
 userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password)
+  return bcrypt.compareSync(password, this.password)
 }
 
 // create a constructor for User
