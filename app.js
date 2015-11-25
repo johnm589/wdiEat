@@ -10,7 +10,7 @@ var passportConfig = require('./config/passport.js')
 		 			 session = require('express-session'),
 			 	 	passport = require('passport'),
 			 		 express = require('express'),
-					 		port = process.env.PORT || 3000,
+					 		port = process.env.PORT || 5000,
 			 	 			 app = express()
 
 // require routes
@@ -59,6 +59,6 @@ app.use('/', shakerRoutes)
 app.use('/', favoriteRoutes)
 
 // start the server on port
-app.listen(port || 3000, function(){
+app.listen(port || 5000, function(){
 	console.log("Server Running!", port)
 })
