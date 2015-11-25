@@ -3,7 +3,8 @@ var         passport = require('passport'),
        LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
           configAuth = require('./auth.js'),
-                User = require('../models/User.js')
+                User = require('../models/User.js'),
+            Favorite = require('../models/Favorite.js')
 
 // store current user's information as a cookie
 passport.serializeUser(function(user, done){
@@ -36,8 +37,11 @@ passport.use('local-signup', new LocalStrategy({
       newUser.local.password = newUser.generateHash(password)
 
       newUser.save(function(err){
-        if (err) throw err
+        if (err) {throw err}
+        else {
+        saveEntry(req.body.saved, newUser)
         return done(null, newUser)
+        }
       })
     })
   }
@@ -57,6 +61,7 @@ passport.use('local-login', new LocalStrategy({
     // if a user was found but the password did not match, then inform the user and exit the function
     if (!user.validPassword(password)) return done(null, false, req.flash('loginMessage', 'Invalid Credentials'))
     // otherwise, create a session
+    saveEntry(req.body.saved, user)
     return done(null, user)
   })
 }))
@@ -66,13 +71,17 @@ passport.use(new FacebookStrategy({
   clientID: configAuth.facebookAuth.clientID,
   clientSecret: configAuth.facebookAuth.clientSecret,
   callbackURL: configAuth.facebookAuth.callbackURL,
-  profileFields: configAuth.facebookAuth.profileFields},
-  function (token, refreshToken, profile, done){
+  profileFields: configAuth.facebookAuth.profileFields,
+  passReqToCallback: true
+  },
+  function (req, token, refreshToken, profile, done){
     // check if the user with this facebook acount has already created an account;
     // if yes, then login
     User.findOne({'facebook.id': profile.id}, function(err, user) {
       if (err) return done(err)
       if (user){
+
+        // saveEntry(req.body.saved, user)
         return done(null, user)
       } else {
         // if not, then create an account and session
@@ -83,11 +92,30 @@ passport.use(new FacebookStrategy({
         newUser.facebook.email = profile.emails[0].value
 
         newUser.save(function(err){
-          if (err) throw err
-          return done(null, newUser)
+          if (err) {throw err}
+          else {
+            // saveEntry(req.body.saved, NewUser)
+            return done(null, newUser)
+          }
+
         })
       }
     })
 }))
+
+function saveEntry(entryId, user){
+  if (entryId !== undefined) {
+    Favorite.findOne({id: entryId}, function(err, favorite) {
+      favorite._owner = user._id
+      favorite.save(function(err) {
+        if (err) res.send(err)
+      })
+      user.favorites.push(favorite)
+      user.save(function(err) {
+        if (err) res.send(err)
+      })
+    })
+  }
+}
 
 module.exports = passport

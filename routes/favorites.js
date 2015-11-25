@@ -8,6 +8,10 @@ favoriteRouter.route('/favorites/:user_id')
   .get(favoriteController.showMyFavorites)
   .post(favoriteController.createFavorite)
 
+
+favoriteRouter.route('/favorites')
+  .post(favoriteController.kreateFavorite)
+
 // set routes for url /favorite/delete/:favorite_id is a parameter to be passed in when the request is to be made
 favoriteRouter.route('/favorite/delete/:favorite_id')
   .delete(favoriteController.deleteFavorite)

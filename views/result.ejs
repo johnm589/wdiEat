@@ -25,8 +25,11 @@
 <a href="/"><button id="back">Back</button></a>
 <!-- If session found, allow user to save the result then redirect them to the profile page -->
 <% if (user) { %>
-  <a href="/profile"><button id="save">GOING!</button></a>
+  <a href="/profile">
+<% } else { %>
+  <a href="#" id="guest-proceed">
 <% } %>
+  <button id="save">GOING</button></a>
 
 <script>
   // reload the page for new result
@@ -38,8 +41,11 @@
   var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
   // if session exists, store the user's id into userId
   if ($('#user').text().length !== 0) {
-    var user = JSON.parse($('#user').text())
     var userId = JSON.parse($('#user').text())._id
+  }
+  else {
+    var favoriteId = favorite.id
+    $('#guest-proceed').attr('href','/session?favoriteId='+favoriteId)
   }
 
   // get the image_url of the result and replace ms.jpg with o.jpg to get a larger image
@@ -48,13 +54,25 @@
 
   $('#save').on('click', function() {
     // if a user is logged in, then  make a POST request to favorites/:user_id
-    if (user) {
+    if (userId) {
       $.ajax({
         url: '/favorites/'+userId, // make a post request to create a favorite and attache it to the current user
         method: 'POST',
         contentType: 'application/json',
         // pass the information to be saved into the new Favorite object
-        data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId}),
+        data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, _owner: userId, id: favorite.id}),
+        success: function(data) {
+          console.log('COOL!')
+        }
+      })
+    }
+    else {
+      $.ajax({
+        url: '/favorites', // make a post request to create a favorite
+        method: 'POST',
+        contentType: 'application/json',
+        // pass the information to be saved into the new Favorite object
+        data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, id: favorite.id}),
         success: function(data) {
           console.log('COOL!')
         }

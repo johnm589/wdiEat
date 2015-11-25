@@ -11,12 +11,26 @@
             <label>Password</label>
             <input type="password" class="form-control" name="password">
         </div>
-
+        <% if (JSON.stringify(query) !== "{}") { %>
+          <input type="hidden" class="favoriteId" name="saved" value=<%= query.favoriteId.toString() %>>
+        <% } %>
         <button type="submit" class="btn btn-info btn-lg">Login</button>
     </form>
     <hr>
 
-        <h2>Or Login With <a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a></h2>
+    <% if (JSON.stringify(query) !== "{}") { %>
+      <form action="/auth/facebook?saved=<%=query.favoriteId.toString()%>" method="post">
+    <% } else {%>
+      <form action="/auth/facebook" method="post">
+    <% } %>
+
+      <% if (JSON.stringify(query) !== "{}") { %>
+        <input type="hidden" class="favoriteId" name="saved" value=<%= query.favoriteId.toString() %>>
+      <% } %>
+      <button type="submit" id="facebook-login" class="btn btn-primary btn-lg">Facebook</button>
+    </form>
+
+
   </div>
   <div class="col-xs-6">
     <h1>Sign Up</h1>
@@ -33,6 +47,9 @@
             <label>Password</label>
             <input type="password" class="form-control" name="password">
         </div>
+        <% if (JSON.stringify(query) !== "{}") { %>
+          <input type="hidden" class="favoriteId" name="saved" value=<%= query.favoriteId.toString() %>>
+        <% } %>
 
         <button type="submit" class="btn btn-warning btn-lg">Signup</button>
     </form>
@@ -41,3 +58,8 @@
   </div>
 
 </div>
+<script>
+$('#facebook-login').on('click', function(){
+      $('#temp-entry-holder').text('HEY')
+})
+</script>

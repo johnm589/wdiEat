@@ -9,6 +9,7 @@ function create(req, res) {
 
   // set the properties using the values passed in from the ajax request (using "data" that ajax provides for the POST method)
   favorite.name = req.body.name
+  favorite.id = req.body.id
   favorite.rating = req.body.rating
   favorite.url = req.body.url
   favorite.display_phone = req.body.display_phone
@@ -52,9 +53,31 @@ function destroy(req,res) {
   )
 }
 
+function kreate(req,res) {
+  // instantiate an object from Favorite
+  var favorite = new Favorite()
+
+  // set the properties using the values passed in from the ajax request (using "data" that ajax provides for the POST method)
+  favorite.name = req.body.name
+  favorite.id = req.body.id
+  favorite.rating = req.body.rating
+  favorite.url = req.body.url
+  favorite.display_phone = req.body.display_phone
+  favorite.address = req.body.address
+  favorite.categories = req.body.categories // array
+  favorite.image_url = req.body.image_url
+  favorite.rating_img_url_large = req.body.rating_img_url_large
+  console.log('KREATE')
+  // save favorite
+  favorite.save(function(err){
+    if (err) res.send(err)
+  })
+}
+
 // export the modules
 module.exports = {
   createFavorite: create,
   showMyFavorites: index,
-  deleteFavorite: destroy
+  deleteFavorite: destroy,
+  kreateFavorite: kreate
 }

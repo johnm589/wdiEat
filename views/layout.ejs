@@ -22,6 +22,7 @@
 
 		<!-- navigation bar for when a session is found -->
 		<div class = "text-center">
+			<div style="display:none" id="temp-entry-holder"></div>
 			<% if (user) {%>
 				<h1><%= user.local.name || user.facebook.name %></h1>
 				<a href="/logout" class="btn btn-default btn-sm">Logout</a>

@@ -36,7 +36,15 @@ userRouter.get('/profile', isLoggedIn, function(req, res) {
 })
 
 // get request for url /auth/facebook; send authenticate requests to facebook and request permissions to use the user's email
-userRouter.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}))
+userRouter.route('/auth/facebook')
+  .post(function(req, res, next) {
+    console.log(req.body.saved+"LOVELYYYYYYY")
+    console.log(req.query.saved+"WOOOOW")
+    passport.authenticate('facebook', {
+      scope: ['email']
+    })(req, res, next)
+  })
+
 
 // get request for auth/facebook/callback; callback url for facebook authentication
 userRouter.get('/auth/facebook/callback', passport.authenticate('facebook', {
@@ -51,7 +59,7 @@ userRouter.get('/logout', function(req, res) {
 })
 
 userRouter.get('/session', function(req, res) {
-    res.render('session', {user: req.user})
+    res.render('session', {user: req.user, query: req.query})
 })
 
 // middleware; if authentication was successful, invoke next; otherwise, redirect to root
