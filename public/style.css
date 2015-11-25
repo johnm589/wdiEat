@@ -3,10 +3,11 @@
     font-family: hamburgerFont;
     src: url(../font/HamburgerHeavenNF.ttf);
 }
+
 body {
-    background-image: url("/images/food_icons.png");
-    background size: 800px; 
-    background-repeat: repeat-y;
+    background-image: url("/images/popsicle-dip.svg");
+    background size: contain;
+    font-family: Open Sans, Helvetica, sans-serif;
 }
 
 #canvaslogo{
@@ -25,6 +26,7 @@ body {
 .container {
     border: 1px solid black;
     width: 700px;
+    margin-top: 60px;
 
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(245,245,245,1)), color-stop(0%, rgba(0,0,0,1)), color-stop(0%, rgba(92,92,92,1)), color-stop(0%, rgba(138,138,138,1)), color-stop(83%, rgba(56,56,56,1)), color-stop(89%, rgba(56,56,56,1)), color-stop(100%, rgba(56,56,56,1)));
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
@@ -40,9 +42,6 @@ body {
   overflow-x: hidden;
 }
 
-.text-center {
-
-}
 .logo-all{
   font-family: hamburgerFont;
   font-size: 50px;
@@ -150,4 +149,19 @@ iframe {
   width: 600px;
   height: 450px;
   border: 0px;
+}
+
+/*header text and buttons*/
+
+.text-center {
+    color: white;
+    margin-top: 20px;
+}
+
+/*.btn-default{
+    border-radius: 4px;
+    color: #000;
+    background: #ffa33a;
+    border: 0;
+    transition: all .5s ease;
 }
