@@ -4,11 +4,11 @@
     src: url(../font/HamburgerHeavenNF.ttf);
 }
 body {
-    /*background-image: url("/images/food_icons.png");*/
-    background-color: black;
-    background-size: 800px;
-    font-family: Open Sans, Helvetica, sans-serif;;
+    background-image: url("/images/food_icons.png");
+    background size: 800px; 
+    background-repeat: repeat-y;
 }
+
 #canvaslogo{
   background-color: grey;
   border-radius: 1000px;
