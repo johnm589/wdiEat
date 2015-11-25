@@ -13,10 +13,11 @@ favoriteRouter.route('/favorites/:user_id')
 //   // create anobject in Favorite by calling the kreate function (it does not set the _owner when it is saved into the database)
 //   .post(favoriteController.kreateFavorite)
 
-// set routes for url /favorite/delete/:favorite_id is a parameter to be passed in when the request is to be made
+// set route for url /favorite/delete/:favorite_id; :favorite_id is a parameter to be passed in when the request is to be made
 favoriteRouter.route('/favorite/delete/:favorite_id')
   .delete(favoriteController.deleteFavorite)
 
+// set route for url /favorite/:favorite_id to show the information of a ONE saved entry
 favoriteRouter.route('/favorite/:favorite_id')
   .get(favoriteController.showFavorite)
 

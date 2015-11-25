@@ -16,6 +16,17 @@
 <p>rating: <%= favorite.rating%> </p>
 <img src="<%= favorite.rating_img_url_large %>"><br>
 <!-- Make an iframe to hold the embedded map-->
-<iframe src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=favorite.location["coordinate"]["latitude"]%>,<%=favorite.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
+<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= favorite.name %>,<%= favorite.address%>"
  allowfullscreen>
 </iframe><br>
+<!-- Make the favorite object accessible to javascript -->
+<div id="result" style="display: none"><%=JSON.stringify(favorite) %></div>
+<!-- Back button to go back to the profile -->
+<a href="/profile"><button>Back</button></a>
+
+<script>
+  // change the image size returned from yelp
+  var favorite = JSON.parse($('#result').text())
+  var imageURL = favorite.image_url.replace('ms.jpg', 'o.jpg')
+  $('#restaurant-image').attr('src', imageURL)
+</script>

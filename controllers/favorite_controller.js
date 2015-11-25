@@ -77,6 +77,7 @@ function destroy(req,res) {
 //   })
 // }
 
+// Create a function to search for a saved entry using its ID and returned that object to be used in show.ejs
 function show(req, res) {
   Favorite.findOne({_id: req.params.favorite_id}, function(err, favorite) {
     if (err) {console.log(err)}
