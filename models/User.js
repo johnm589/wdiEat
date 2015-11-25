@@ -5,9 +5,17 @@ var   mongoose = require('mongoose'),
 
 // create a user schema
 var userSchema = new Schema ({
+  local: {
     name: String,
     email: {type: String, require: true, unique: true},
     password: {type: String, require:true},
+  },
+  facebook: {
+    id: String,
+    name: String,
+    token: String, // check if the user has authorized
+    email: String,
+  },
   favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
 })
 
