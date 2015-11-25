@@ -1,5 +1,3 @@
-
-
 <div class="col-sm-6 col-sm-offset-3">
 
     <h1>What do I eat?</h1>
@@ -104,7 +102,7 @@
         </div>
 
         <div class="shake-chunk">
-                <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
+                <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l" onclick="audio.play()">Locating...</button>
               </div>
                 <p id="location-status">Loading Current Location...<p>
                     <p>
@@ -116,7 +114,7 @@
             </form>
 </div>
 <script>
-
+var audio = new Audio("images/whoosh.mp3")
 var latitude;
 var longitude;
 $.ajax({
@@ -149,8 +147,9 @@ $('#shake').click(function(){
           $('#location').val(current)
         }
 $(document).ready(function(e) {
-  width = "+=" + $(document).width();
+  width = "+=" + $(document).width()
             $(".logo-all").animate({
+
             left: width
           }, 800, function() {
   if ($('#cll').val() === ""){
