@@ -1,47 +1,4 @@
-<<<<<<< HEAD
-<div class="results-container">
 
-    <div class="restaurant-title clearfix">
-        <h1><%= chosen.name %></h1>
-        <img src=" <%= chosen.rating_img_url_large %>">
-    </div>
-
-<% for (var i = 0; i < chosen.categories.length; i++) { %>
-  <% if (i === 0){ %>
-    <span><%= chosen.categories[i][0] %></span>
-  <% } else {%>
-    <span>,<%= chosen.categories[i][0] %></span>
-    <% } %>
-<% } %>
-
-
-    <div class="restaurant-image-container" style="background-image: url(<%= chosen.image_url.replace('ms.jpg', 'o.jpg') %>)"></div>
-
-    <p>phone-number: <%=chosen.display_phone %></p>
-    <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
-
-
-    <p><%= chosen.location["display_address"].toString() %></p>
-    <!-- src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw&q=<%= chosen.name %>,<%= chosen.location["city"]%>+<%= chosen.location["state_code"]%>" -->
-
-    <div class="restaurant-buttons">
-        <button id="shake-again">Try again</button>
-        <a href="/"><button id="back">Back</button></a>
-        <button id="save">GOING!</button>
-    </div>
-
-    <iframe
-      width="100%"
-      height="450"
-      frameborder="0"
-      style="border:0"
-      src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
-      allowfullscreen>
-    </iframe><br>
-    <!--div id="result"><%=JSON.stringify(chosen) %></div-->
-</div>
-
-=======
 <h1><%= chosen.name %></h1><br>
 <!-- make an img tag to hold the restaurant picture-->
 <img id="restaurant-image" src="">
@@ -71,26 +28,13 @@
   <% if (user) {%>
   <a href="/profile"><button id="save">GOING</button></a>
   <% } %>
->>>>>>> db42721bdd875a9794617451b4ad3bf113ce8f99
+
 
 <script>
   // reload the page for new result
   $('#shake-again').on('click',function(evt){
     location.reload()
   })
-<<<<<<< HEAD
-}
-else {
-  console.log('Signup&LogIn')
-}
-
-
- })
-
-
-
-
-=======
 
   var favorite = JSON.parse($('#result').text())
   var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
@@ -132,5 +76,4 @@ else {
     //   })
     // }
   })
->>>>>>> db42721bdd875a9794617451b4ad3bf113ce8f99
 </script>

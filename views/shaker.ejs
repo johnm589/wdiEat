@@ -116,7 +116,8 @@
             </form>
 </div>
 <script>
-var audio = "images/whoosh.mp3"
+var audio = new Audio("images/whoosh.mp3")
+
 var latitude;
 var longitude;
 $.ajax({
@@ -177,15 +178,9 @@ $('document').ready(function(){
       $('#shake').removeAttr('disabled')
       $('#shake').text('Find Food!')
   }
-
   function error() {
     $('#location-status').text('Current Location Service Disabled (Notes: This would affect the accuracy of result)')
     $('#shake').removeAttr('disabled')
-
   }
-
-
 })
-
-
 </script>
