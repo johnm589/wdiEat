@@ -1,40 +1,45 @@
-<div class="favorites">
-
-</div>
+<!-- create a div (parent container) to hold all the saved entries -->
+<div id="favorites"></div>
 
 <script>
-if ($('#user').text().length !== 0) {
-  var userId = JSON.parse($('#user').text())._id
-}
+  // if user exists, grab the current user's id and store it in userId
+  if ($('#user').text().length !== 0) {
+    var userId = JSON.parse($('#user').text())._id
+  }
 
-$.ajax({
-  method: 'GET',
-  url: '/favorites/'+userId,
-  data: {userId: userId},
-  success: function(data) {
-    data.forEach(function(favorite) {
+  // make a get request to retrieve all the saved restaurants that belongs to the current user
+  $.ajax({
+    method: 'GET',
+    url: '/favorites/'+userId, // get all the saved entries from the current user
+    success: function(data) {
 
-      var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ favorite.categories +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><a href="/profile"><button class="deleteFavorite" id="' + favorite._id + '">Delete</button></a>'
-      $('.favorites').append(entry)
+      if (data.length > 0) {
+      // append each of the entry to favorites
+      data.forEach(function(favorite) {
+        var categories = []
+        var categoriesArray = favorite.categories
 
-      $delete = $('#'+favorite._id)
-      $delete.on('click', function(){
-        var _id = $(this).attr('id')
-        console.log('The saved entry with id' + _id + 'is deleted')
-        $.ajax({
-          url: '/favorite/delete/' + _id,
-          method: 'DELETE'
+        for (var i = 0; i < categoriesArray.length; i++) {
+          categories.push(" "+ categoriesArray[i][0])
+        }
+
+        var entry = '<div class="favorite"><p>Name: ' + favorite.name + '</p><p>Categories:'+ categories.toString() +'</p><p>Address: '+ favorite.address +'</p><p>Phone Number:' + favorite.display_phone  + '</p><p>Rating: '+ favorite.rating + '</p><img src="' + favorite.rating_img_url_large + '"/><br><a href="' + favorite.url + '"> See Yelp Page' + '</a><br><img src="' + favorite.image_url + '"/><br><button class="deleteFavorite" id="' + favorite._id + '">Delete</button>'+'<a href="favorite/' + favorite._id +  '"><button>See Restaurant</button></a>'
+        $('#favorites').append(entry)
+
+        $delete = $('#'+favorite._id) // select the delete button by id
+        $delete.on('click', function(){ // add an event listener to the delete button
+          var _id = $(this).attr('id')
+          $.ajax({
+            url: '/favorite/delete/' + _id, // remove the entry with the same id as the button id
+            method: 'DELETE'
+          })
+          location.reload() // refresh page when entry is removed from the data base
         })
       })
-    })
+    }
+    else {
+      $('#favorites').append('<div> No restaurant has been saved to favorite yet</div>')
+    }
   }
-})
-
-
-
-
-
-
-
-
+  })
 </script>
