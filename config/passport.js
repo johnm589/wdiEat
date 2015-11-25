@@ -20,34 +20,28 @@ passport.deserializeUser(function(id, done){
 
 // create a local-user using passport & passport-local
 passport.use('local-signup', new LocalStrategy({
-  usernameField: 'email', //make the usernameField to store email instead
+  usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
 },
   function(req, email, password, done) {
-    // check if email is already taken
-    User.findOne({'email': email}, function(err, user) {
-      if(err) {return done(err)}
-      // if it is, inform user that the email is already taken and exit the function
-      if(user) {return done(null, false)}
-      // if not, create a user and save it to the database
-      else {
-        var newUser = new User()
-        newUser.local.name = req.body.name
-        newUser.local.email = email
-        newUser.local.password = newUser.generateHash(password) // encrypt password
+    User.findOne({'local.email': email}, function(err, user) {
+      if(err) return done(err)
+      if(user) return done(null, false, req.flash('signupMessage','That email is already taken.'))
 
-        newUser.save(function(err){
-          if (err) {throw err}
-          else {
-            // saveEntry(req.body.saved, newUser) // save the entry to THIS user's favorites
-            return done(null, newUser)
-          }
-        })
-      }
+      var newUser = new User()
+      newUser.local.name = req.body.name
+      newUser.local.email = email
+      newUser.local.password = newUser.generateHash(password)
+
+      newUser.save(function(err){
+        if (err) throw err
+        return done(null, newUser)
+      })
     })
   }
 ))
+
 
 // create a session when logging in with a local-account using passport & passport-local
 passport.use('local-login', new LocalStrategy({
