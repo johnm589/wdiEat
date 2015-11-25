@@ -61,5 +61,4 @@ app.use('/', favoriteRoutes)
 // start the server on port
 app.listen(port || 3000, function(){
 	console.log("Server Running!", port)
-app.use(express.static('public'))
 })
