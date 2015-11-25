@@ -63,5 +63,3 @@ app.listen(port || 5000, function(){
 	console.log("Server Running!", port)
 })
 app.set('port', (process.env.PORT|| 3000))
-
-app.use(express.static('public'))
