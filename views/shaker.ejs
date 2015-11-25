@@ -1,7 +1,4 @@
-
-
 <div class="col-sm-6 col-sm-offset-3">
-
     <h1>What do I eat?</h1>
 
     <form id="search-criteria" action="/result" method="post">
@@ -9,14 +6,16 @@
             <label>Near</label>
             <input type="text" id="location" class="form-control" name="location" placeholder="Current Location">
         </div>
+        <!-- Make an hidden input to store the longitutde/latitude(cll) and the city that the user is currently accessing the app from -->
+        <input type="hidden" id="cll" class="form-control" name="cll">
+        <input type="hidden" id="currentCity" class="form-control" name="currentCity">
 
         <div class="form-group">
           <label>Search by keyword</label>
             <input type="text" id="term" class="form-control" name="term" placeholder="burger, pizza, sushi...">
         </div>
-          <input type="hidden" id="cll" class="form-control" name="cll">
-          <input type="hidden" id="currentCity" class="form-control" name="currentCity">
 
+        <!-- Create a container to hold all the cuisines options -->
         <div class="form-group cuisines-container">
           <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="newamerican"> American (New)
@@ -28,7 +27,6 @@
             <input type="checkbox" name="cuisines" class="cuisines-options"
             value="asianfusion"> Asian Fusion
           </label>
-
           <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="breakfast_brunch"> Breakfast and Brunch
           </label>
@@ -37,18 +35,17 @@
           </label>
           <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="chinese"> Chinese
-            </label>
-            <label class="form-control">
+          </label>
+          <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="french"> French
           </label>
           <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="german"> German
           </label>
-
-            <label class="form-control">
-              <input type="checkbox" name="cuisines" class="cuisines-options" value="gluten_free"> Gluten-Free
-            </label>
-            <label class="form-control">
+          <label class="form-control">
+            <input type="checkbox" name="cuisines" class="cuisines-options" value="gluten_free"> Gluten-Free
+          </label>
+          <label class="form-control">
             <input type="checkbox" name="cuisines" class="cuisines-options" value="greek"> Greek
           </label>
           <label class="form-control">
@@ -104,79 +101,78 @@
         </div>
 
         <div class="shake-chunk">
-                <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
-              </div>
-                <p id="location-status">Loading Current Location...<p>
-                    <p>
-                        <button type="button" id="favorite_button" class="btn btn-warning btn-l">
-                    <span class="glyphicon glyphicon-heart"></span> My Favorites
-                  </button>
-                </p>
-              </div>
-            </form>
+          <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
+        </div>
+
+        <p id="location-status">Loading Current Location...<p>
+          <button type="button" id="favorite_button" class="btn btn-warning btn-l">
+            <span class="glyphicon glyphicon-heart"></span> My Favorites
+          </button>
+        </p>
+    </form>
 </div>
 <script>
+  // Create an empty variable used to hold the latitude and longitude retrieved from geolocation
+  var latitude;
+  var longitude;
 
-var latitude;
-var longitude;
-$.ajax({
-  url: '//freegeoip.net/json/',
-  type: 'POST',
-  dataType: 'jsonp',
-  success: function(location) {
-    console.log('found')
-    current = location.city,
-    zipCode = location.zipcode,
-    cll = location.latitude.toString() + "," + location.longitude.toString()
-  }
-})
+  // Make a Post request to get an estimate of the current city and location (longitude & latitude)
+  $.ajax({
+    url: '//freegeoip.net/json/',
+    type: 'POST',
+    dataType: 'jsonp',
+    success: function(location) {
+      console.log('freegeoip successfully located your current city')
+      current = location.city,
+      cll = location.latitude.toString() + "," + location.longitude.toString()
+    }
+  })
 
-$('.cuisines-options').click(function(){
-  if ($(this).parent().hasClass('checked')){
-    $(this).parent().removeClass('checked')
-  }
-  else {
-    $(this).parent().addClass('checked')
-  }
-})
+  // Use the geolocation (browser dependent) to get a more accurate location of the user
+  $('document').ready(function(){
+    if (!navigator.geolocation) {
+      console.log('Device does not support this feature') // if geolocation not supported by browser/device, inform the user
+    }
 
+    navigator.geolocation.getCurrentPosition(success, error)
 
-$('#shake').click(function(){
-
-   if ($('#location').val() === "" && current) {
-          $('#location').val(current)
-        }
-  if ($('#cll').val() === ""){
-      $('#cll').val(cll)
-  }
-      })
-
-
-$('document').ready(function(){
-  if (!navigator.geolocation) {
-    console.log('Device does not support this feature')
-  }
-
-  navigator.geolocation.getCurrentPosition(success, error)
-
-  function success(position) {
+    // if geolocation works, then store the current latitude and longitude into cll field
+    function success(position) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      console.log(latitude,longitude)
       $('#cll').val(latitude+','+longitude)
-      $('#location-status').text('Current Location found!')
-      $('#shake').removeAttr('disabled')
+        $('#location-status').text('Current Location found!') // inform user location found
+        $('#shake').removeAttr('disabled') // allow the user to proceed once finished locating
+        $('#shake').text('Find Food!')
+    }
+
+    // if error..
+    function error() {
+      $('#location-status').text('Current Location Service Disabled (Notes: This would affect the accuracy of result)') // inform the user the result of not allowing geolocation
       $('#shake').text('Find Food!')
-  }
+      $('#shake').removeAttr('disabled') // allow the user to proceed
+    }
+  })
 
-  function error() {
-    $('#location-status').text('Current Location Service Disabled (Notes: This would affect the accuracy of result)')
-    $('#shake').removeAttr('disabled')
+  // change the color  of checkboxes if selected/deselected
+  $('.cuisines-options').click(function(){
+    if ($(this).parent().hasClass('checked')){
+      $(this).parent().removeClass('checked')
+    }
+    else {
+      $(this).parent().addClass('checked')
+    }
+  })
 
-  }
-
-
-})
-
-
+  // when form is submitted to make a request to yelp...
+  $('#shake').click(function(){
+    // if location field is empty, then use the current city retrieved from freegeoip
+    if ($('#location').val() === "" && current) {
+      $('#location').val(current)
+    }
+    // if cll field is empty (which means geolocation failed), then use the longitude/latitude retrieved from freegeoip
+    if ($('#cll').val() === ""){
+      $('#cll').val(cll)
+    }
+  })
 </script>
