@@ -122,7 +122,7 @@
     type: 'POST',
     dataType: 'jsonp',
     success: function(location) {
-      console.log('found')
+      console.log('freegeoip successfully located your current city')
       current = location.city,
       cll = location.latitude.toString() + "," + location.longitude.toString()
     }

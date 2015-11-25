@@ -27,22 +27,24 @@ passport.use('local-signup', new LocalStrategy({
   function(req, email, password, done) {
     // check if email is already taken
     User.findOne({'email': email}, function(err, user) {
-      if(err) return done(err)
+      if(err) {return done(err)}
       // if it is, inform user that the email is already taken and exit the function
-      if(user) return done(null, false, req.flash('signupMessage','That email is already taken.'))
+      if(user) {return done(null, false)}
       // if not, create a user and save it to the database
-      var newUser = new User()
-      newUser.name = req.body.name
-      newUser.email = email
-      newUser.password = newUser.generateHash(password)
+      else {
+        var newUser = new User()
+        newUser.name = req.body.name
+        newUser.email = email
+        newUser.password = newUser.generateHash(password) // encrypt password
 
-      newUser.save(function(err){
-        if (err) {throw err}
-        else {
-        saveEntry(req.body.saved, newUser)
-        return done(null, newUser)
-        }
-      })
+        newUser.save(function(err){
+          if (err) {throw err}
+          else {
+            saveEntry(req.body.saved, newUser) // save the entry to THIS user's favorites
+            return done(null, newUser)
+          }
+        })
+      }
     })
   }
 ))
@@ -52,28 +54,33 @@ passport.use('local-login', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-}, function(req, email, password, done) {
-  // check if a user with the email specified exists in the database
-  User.findOne({'email': email}, function(err, user) {
-    if (err) throw err
-    // if no user was found, inform the user and exit the function
-    if (!user) return done(null, false, req.flash('loginMessage', 'No User Found.'))
-    // if a user was found but the password did not match, then inform the user and exit the function
-    if (!user.validPassword(password)) return done(null, false, req.flash('loginMessage', 'Invalid Credentials'))
-    // otherwise, create a session
-    saveEntry(req.body.saved, user)
-    return done(null, user)
-  })
-}))
+},
+  function(req, email, password, done) {
+    // check if a user with the email specified exists in the database
+    User.findOne({'email': email}, function(err, user) {
+      if (err) {throw err}
+      // if no user was found, inform the user and exit the function
+      if (!user) {return done(null, false)}
+      // if a user was found but the password did not match, then inform the user and exit the function
+      if (!user.validPassword(password)) {return done(null, false)}
+      // otherwise, create a session
+      else {
+        saveEntry(req.body.saved, user) // save the entry to THIS user's favorites
+        return done(null, user)
+      }
+    })
+  }
+))
 
+// create a function to save an entry to a user's account once the user signed up or logged in
 function saveEntry(entryId, user){
   if (entryId !== undefined) {
     Favorite.findOne({id: entryId}, function(err, favorite) {
-      favorite._owner = user._id
+      favorite._owner = user._id // set the owner
       favorite.save(function(err) {
         if (err) res.send(err)
       })
-      user.favorites.push(favorite)
+      user.favorites.push(favorite) // push the saved entry to user's favorites
       user.save(function(err) {
         if (err) res.send(err)
       })

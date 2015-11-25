@@ -13,6 +13,7 @@
     url: '/favorites/'+userId, // get all the saved entries from the current user
     success: function(data) {
 
+      if (data.length > 0) {
       // append each of the entry to favorites
       data.forEach(function(favorite) {
         var categories = []
@@ -36,5 +37,9 @@
         })
       })
     }
+    else {
+      $('#favorites').append('<div> No restaurant has been saved to favorite yet</div>')
+    }
+  }
   })
 </script>

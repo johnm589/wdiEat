@@ -27,6 +27,7 @@
 				<h1><%= user.name %></h1>
 				<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 				<a href="/profile" class="btn btn-default btn-sm">Favorites</a>
+				<a href="/profile/<%= user.id%>/edit" class="btn btn-default btn-sm">Account Setting</a>
 				<!-- Make it convenient to grab user's id in views through javascript -->
 				<div id="user" style="display: none"><% if (user) {%><%= JSON.stringify(user) %><%} %></div>
 			<!-- navigation bar for when no session is found -->

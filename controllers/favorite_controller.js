@@ -27,11 +27,13 @@ function create(req, res) {
   // find the current user object
   User.findOne({_id: req.params.user_id}, function(err, user) {
     // User.findOne returns AN OBJECT
-    if (err) console.log(err)
-    user.favorites.push(favorite) // save THIS entry to user's favorites
-    user.save(function(err){ // save the change
-      if (err) res.send(err)
-    })
+    if (err) {console.log(err)}
+    else {
+      user.favorites.push(favorite) // save THIS entry to user's favorites
+      user.save(function(err){ // save the change
+        if (err) res.send(err)
+      })
+    }
   })
 }
 
@@ -39,14 +41,16 @@ function create(req, res) {
 function index(req,res) {
   Favorite.find({_owner: req.params.user_id},function(err, favorites) {
     // Favorite.find returns AN ARRAY of objects
-    if (err) console.log(err)
+    if (err) {console.log(err)}
+    else {
       res.json(favorites) // return the results found as a json
-    })
+    }
+  })
 }
 
 // delete the saved entry
 function destroy(req,res) {
-  Favorite.remove({_id: req.params.favorite_id}, // find the saved entry using id
+  Favorite.findOneAndRemove({_id: req.params.favorite_id}, // find the saved entry using id
     function(err){
       if (err) {res.send(err)}
     }
@@ -67,7 +71,6 @@ function kreate(req,res) {
   favorite.categories = req.body.categories // array
   favorite.image_url = req.body.image_url
   favorite.rating_img_url_large = req.body.rating_img_url_large
-  console.log('KREATE')
   // save favorite
   favorite.save(function(err){
     if (err) res.send(err)
@@ -79,5 +82,5 @@ module.exports = {
   createFavorite: create,
   showMyFavorites: index,
   deleteFavorite: destroy,
-  kreateFavorite: kreate
+  kreateFavorite: kreate,
 }
