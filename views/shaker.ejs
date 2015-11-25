@@ -163,16 +163,24 @@
       $(this).parent().addClass('checked')
     }
   })
-
   // when form is submitted to make a request to yelp...
   $('#shake').click(function(){
     // if location field is empty, then use the current city retrieved from freegeoip
     if ($('#location').val() === "" && current) {
-      $('#location').val(current)
-    }
-    // if cll field is empty (which means geolocation failed), then use the longitude/latitude retrieved from freegeoip
+            $('#location').val(current)
+          }
+  // Logo Move
+  $(document).ready(function(e) {
+    width = "+=" + $(document).width()
+              $(".logo-all").animate({
+
+              left: width
+            }, 800, function() {
+              // if cll field is empty (which means geolocation failed), then use the longitude/latitude retrieved from freegeoip
     if ($('#cll').val() === ""){
-      $('#cll').val(cll)
+        $('#cll').val(cll)
     }
-  })
+        })
+      })
+    })
 </script>

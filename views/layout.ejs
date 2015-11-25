@@ -5,9 +5,11 @@
   <link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.min.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.19/p5.js"></script>
 </head>
 <body>
 	<!-- Spinning wheel as app-logo and homepage link -->
@@ -22,7 +24,6 @@
 
 		<!-- navigation bar for when a session is found -->
 		<div class = "text-center">
-			<div style="display:none" id="temp-entry-holder"></div>
 			<% if (user) {%>
 				<h1><%= user.local.name || user.facebook.name %></h1>
 				<a href="/logout" class="btn btn-default btn-sm">Logout</a>
@@ -39,6 +40,7 @@
 			<% } %>
 		</div>
 		<hr>
+
 	<div class="container">
 		<%- body %>
 	</div>
@@ -84,12 +86,6 @@
 	    }
 	  }
 	}
-
-	function spin() {
-	  spinAngleStart = Math.random() * 10 + 10;
-	  spinTimeTotal = Math.random() * 3 + 4 * 1000;
-	}
-
 	// call drawRouletteWheel continuously every 1/10 of a second
 	setInterval(drawRouletteWheel, 100)
 </script>

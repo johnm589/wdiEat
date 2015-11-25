@@ -1,32 +1,47 @@
-<h1><%= chosen.name %></h1><br>
-<!-- make an img tag to hold the restaurant picture-->
-<img id="restaurant-image" src="">
-<p><%= chosen.location["display_address"].toString() %></p>
-<span>Category: </span>
-  <!-- do a for loop to grab only the first element from every array -->
-  <% for (var i = 0; i < chosen.categories.length; i++) { %>
-    <% if (i === 0){ %>
-      <span><%= chosen.categories[i][0] %></span>
-    <% } else {%>
-      <span>,<%= chosen.categories[i][0] %></span>
+<div class="results-container">
+
+    <div class="restaurant-title clearfix">
+        <h1><%= chosen.name %></h1>
+        <img src=" <%= chosen.rating_img_url_large %>">
+    </div>
+
+<% for (var i = 0; i < chosen.categories.length; i++) { %>
+  <% if (i === 0){ %>
+    <span><%= chosen.categories[i][0] %></span>
+  <% } else {%>
+    <span>,<%= chosen.categories[i][0] %></span>
     <% } %>
-  <% } %>
-<p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
-<p>phone-number: <%=chosen.display_phone %></p>
-<p>rating: <%= chosen.rating%> </p>
-<img src="<%= chosen.rating_img_url_large %>"><br>
-<!-- Make an iframe to hold the embedded map-->
-<iframe src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
- allowfullscreen>
-</iframe><br>
+<% } %>
+
+    <div class="restaurant-image-container" style="background-image: url(<%= chosen.image_url.replace('ms.jpg', 'o.jpg') %>)"></div>
+
+    <p>phone-number: <%=chosen.display_phone %></p>
+    <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
+
+
+    <p><%= chosen.location["display_address"].toString() %></p>
+
+    <div class="restaurant-buttons">
+        <button id="shake-again">Try again</button>
+        <a href="/"><button id="back">Back</button></a>
+        <% if (user) {%>
+          <a href="/profile"><button id="save">GOING</button></a>
+        <% } %>
+    </div>
+
+    <iframe
+      width="100%"
+      height="450"
+      frameborder="0"
+      style="border:0"
+      src="https://www.google.com/maps/embed/v1/directions?origin=<%=cll%>&destination=<%=chosen.location["coordinate"]["latitude"]%>,<%=chosen.location["coordinate"]["longitude"]%>&key=AIzaSyCvB_F_S_FrDlcGvJkz-3LxCtcVBCn55hw"
+      allowfullscreen>
+    </iframe><br>
+
+</div>
+
 <!-- Make the result accessible to javascript-->
 <div id="result" style="display: none"><%=JSON.stringify(chosen) %></div>
-<button id="shake-again">Try again</button>
-<a href="/"><button id="back">Back</button></a>
-<!-- If session found, allow user to save the result then redirect them to the profile page -->
-  <% if (user) {%>
-  <a href="/profile"><button id="save">GOING</button></a>
-  <% } %>
 
 <script>
   // reload the page for new result
@@ -61,17 +76,5 @@
           console.log('COOL!')
         }
       })
-    // else {
-    //   $.ajax({
-    //     url: '/favorites', // make a post request to create a favorite
-    //     method: 'POST',
-    //     contentType: 'application/json',
-    //     // pass the information to be saved into the new Favorite object
-    //     data: JSON.stringify({"name": favorite.name, "rating": favorite.rating, url: favorite.url , display_phone: favorite.display_phone, address: address, categories: favorite.categories, image_url: favorite.image_url, rating_img_url_large: favorite.rating_img_url_large, id: favorite.id}),
-    //     success: function(data) {
-    //       console.log('COOL!')
-    //     }
-    //   })
-    // }
   })
 </script>
