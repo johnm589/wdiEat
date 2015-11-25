@@ -17,4 +17,7 @@ favoriteRouter.route('/favorites/:user_id')
 favoriteRouter.route('/favorite/delete/:favorite_id')
   .delete(favoriteController.deleteFavorite)
 
+favoriteRouter.route('/favorite/:favorite_id')
+  .get(favoriteController.showFavorite)
+
 module.exports = favoriteRouter

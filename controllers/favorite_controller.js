@@ -77,10 +77,20 @@ function destroy(req,res) {
 //   })
 // }
 
+function show(req, res) {
+  Favorite.findOne({_id: req.params.favorite_id}, function(err, favorite) {
+    if (err) {console.log(err)}
+    else {
+      res.render('show', {favorite: favorite, user: req.user})
+    }
+  })
+}
+
 // export the modules
 module.exports = {
   createFavorite: create,
   showMyFavorites: index,
-  deleteFavorite: destroy
+  deleteFavorite: destroy,
+  showFavorite: show
   // kreateFavorite: kreate
 }
