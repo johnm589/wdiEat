@@ -101,7 +101,7 @@
         </div>
 
         <div class="shake-chunk">
-          <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l">Locating...</button>
+          <button disabled="true" type="submit" id="shake" class="btn btn-warning btn-l" onclick="audio.play()">Locating...</button>
         </div>
 
         <p id="location-status">Loading Current Location...<p>
@@ -112,6 +112,8 @@
     </form>
 </div>
 <script>
+//Sound
+  var audio = new Audio("images/whoosh.mp3");
   // Create an empty variable used to hold the latitude and longitude retrieved from geolocation
   var latitude;
   var longitude;
