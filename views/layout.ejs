@@ -9,86 +9,104 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.19/p5.js"></script>
+
 </head>
 <body>
+	<!-- Spinning wheel as app-logo and homepage link -->
 	<a href="/">
-	<div class="logo-all">
-	  <div id="logo-text">
-	      WDI EAT?</div>
-	<canvas id="canvaslogo" width="202" height="202">  </canvas>
-</div>
-</a>
+		<div class="logo-all">
+	  	<div id="logo-text">
+	      	WDI EAT?
+			</div>
+			<canvas id="canvaslogo" width="202" height="202">  </canvas>
+		</div>
+	</a>
 
-	<div>
-	<% if (user) {%>
+		<!-- navigation bar for when a session is found -->
 		<div class = "text-center">
-			<h1><%= user.local.name || user.facebook.name %></h1>
-			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-			<a href="/profile" class="btn btn-default btn-sm">Favorites</a>
-			<a href="/" class="btn btn-default btn-sm">Homepage</a>
-			<!-- Make it convenient to grab user's id in views through javascript -->
-			<div id="user" style="display: none"><% if (user) {%><%= JSON.stringify(user) %><%} %></div>
-		</div>
-	<% } else {%>
-		<div class="text-center header">
-			<a href="/session" class="btn btn-default btn-sm">Favorites</a>
-			<a href="/" class="btn btn-default btn-sm">Homepage</a>
-				<!-- <h3>Login or Sign Up:</h3>
-				<a href="/login" class="btn btn-default">Local Login</a>
-				<a href="/signup" class="btn btn-default">Local Signup</a>
-				<hr>
-				<h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4> -->
-		</div>
 
-	<% } %>
+			<div style="display:none" id="temp-entry-holder"></div>
+			<% if (user) {%>
+				<h1><%= user.local.name || user.facebook.name %></h1>
+				<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+				<a href="/profile" class="btn btn-default btn-sm">Favorites</a>
+			<% if (user.local.name) {%>
+				<a href="/profile/<%= user.id%>/edit" class="btn btn-default btn-sm">Account Setting</a>
+				<% } %>
+				<!-- Make it convenient to grab user's id in views through javascript -->
+				<div id="user" style="display: none"><% if (user) {%><%= JSON.stringify(user) %><%} %></div>
+			<!-- navigation bar for when no session is found -->
+			<% } else {%>
+				<a href="/session" class="btn btn-default btn-sm">Favorites</a>
+				<a href="/" class="btn btn-default btn-sm">Homepage</a>
+			<% } %>
+		</div>
+		<hr>
 
 	<div class="container">
-
 		<%- body %>
 	</div>
 </body>
 </html>
+<script>
+	//Logo Canvas Script
+	// store the colors in an array
+	var colors = ["#B8D430", "#3AB745", "#029990", "#3501CB",
+	                 "#2E2C75", "#673A7E", "#CC0071", "#F80120",
+	                 "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
+
+	var startAngle = 0;
+	var arc = Math.PI / 6;
+	var ctx;
+
+	// create a function to draw the roulette wheel
+	function drawRouletteWheel() {
+	  var canvas = document.getElementById("canvaslogo");
+	  if (canvas.getContext) {
+	    var outsideRadius = 100;
+	    var insideRadius = 75;
+	    var canvasWidth = 202;
+
+	    ctx = canvas.getContext("2d");
+	    ctx.clearRect(0,0,100,100);
+
+	    ctx.strokeStyle = "black";
+	    ctx.lineWidth = 2;
+
+	    for(var i = 0; i < 12; i++) {
+	      var angle = startAngle + i * arc;
+	      ctx.fillStyle = colors[i];
+	      ctx.beginPath();
+
+	      ctx.arc(101, 101, outsideRadius, angle, angle + arc, false);
+	      ctx.arc(101, 101, insideRadius, angle + arc, angle, true);
+	      ctx.translate(canvasWidth/2, canvasWidth/2);
+	      ctx.rotate(Math.PI / 180);
+	      ctx.translate(-canvasWidth/2, -canvasWidth/2);
+	      ctx.stroke();
+	      ctx.fill();
+	    }
+	  }
+	}
+
+	function spin() {
+	  spinAngleStart = Math.random() * 10 + 10;
+	  spinTimeTotal = Math.random() * 3 + 4 * 1000;
+	}
+
+	// call drawRouletteWheel continuously every 1/10 of a second
+	setInterval(drawRouletteWheel, 100)
+</script>
 
 <script>
-//Logo Canvas Script
-var colors = ["#B8D430"
-, "#3AB745", "#029990", "#3501CB",
-                 "#2E2C75", "#673A7E", "#CC0071", "#F80120",
-                 "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"
-							 ]
-
-var startAngle = 0
-, arc = Math.PI / 6
-, ctx
-
-function drawRouletteWheel() {
-  var canvas = document.getElementById("canvaslogo")
-  if (canvas.getContext) {
-    var outsideRadius = 100
-    , insideRadius = 75
-    , canvasWidth = 202
-
-    ctx = canvas.getContext("2d")
-    ctx.clearRect(0,0,100,100)
-    ctx.lineWidth = 1
-
-    for(var i = 0; i < 12; i++) {
-      var angle = startAngle + i * arc
-      ctx.fillStyle = colors[i]
-      ctx.beginPath()
-
-      ctx.arc(101, 101, outsideRadius, angle, angle + arc, false)
-      ctx.arc(101, 101, insideRadius, angle + arc, angle, true)
-      ctx.translate(canvasWidth/2, canvasWidth/2)
-      ctx.rotate(Math.PI / 180)
-      ctx.translate(-canvasWidth/2, -canvasWidth/2)
-      ctx.stroke()
-      ctx.fill()
-		  }
-  }
-}
-
-setInterval(drawRouletteWheel, 100)
+//Logo Move
+// $(document).ready(function(e) {
+//     width = "+=" + $(document).width();
+//     $(".logo-all").animate({
+//     left: width
+//   }, 100000, function() {
+// window.location = "/";
+//   });
+// });
 </script>

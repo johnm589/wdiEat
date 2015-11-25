@@ -140,3 +140,14 @@ a {
 .checked {
   background-color: skyblue;
 }
+
+#restaurant-image {
+  width: 500px;
+}
+
+iframe {
+  width: 600px;
+  height: 450px;
+  border: 0px;
+}
+>>>>>>> db42721bdd875a9794617451b4ad3bf113ce8f99

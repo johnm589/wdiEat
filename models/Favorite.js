@@ -13,6 +13,7 @@ var favoriteSchema = Schema({
   categories: Array,
   image_url: String,
   rating_img_url_large: String,
+  id: String
 })
 
 // create a constructor for Favorite
