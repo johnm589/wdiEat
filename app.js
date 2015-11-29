@@ -12,6 +12,10 @@ var passportConfig = require('./config/passport.js')
 			 		 express = require('express'),
 					 		port = process.env.PORT || 3000,
 			 	 			 app = express()
+, share = require('social-share')
+, url = share('twitter', {
+    title:'share it'
+})
 
 // require routes
 var userRoutes = require('./routes/users.js')
@@ -32,6 +36,12 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+
+//Social Sharing
+app.get('/redirect', function(req, res) {
+    var url = share(req.query.service, req.query);
+    res.redirect(url);
+});
 
 // make files inside the public accessible to app
 app.use(express.static(__dirname + '/public'))
