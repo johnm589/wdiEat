@@ -10,8 +10,31 @@
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.19/p5.js"></script>
+
+<!--changing background function-->
+	<script type="text/javascript">
+	var totalimgs = 12;
+	function bg_change() {
+		var count = Math.ceil(Math.random()*totalimgs);
+		document.body.background = "/images/bgimages/"+count+".svg";
+		document.body.background = "/images/bgimages/"+count+".svg";
+		//document.body.style.backgroundRepeat = "no-repeat";
+		//document.body.style.background.size = "50px";
+	}
+
+	</script>
+
 </head>
 <body>
+
+<div id="background"></div>
+
+
+<!--background change function-->
+	<script type="text/javascript">
+	bg_change();
+	</script>
+
 	<!-- Spinning wheel as app-logo and homepage link -->
 	<a href="/">
 		<div class="logo-all">
@@ -45,7 +68,12 @@
 		<%- body %>
 	</div>
 </body>
+
+
+
+
 </html>
+
 <script>
 	//Logo Canvas Script
 	// store the colors in an array
@@ -89,6 +117,7 @@
 	// call drawRouletteWheel continuously every 1/10 of a second
 	setInterval(drawRouletteWheel, 100)
 </script>
+
 
 <script>
 //Logo Move

@@ -5,10 +5,26 @@
 }
 
 body {
-    background-image: url("/images/food_icons_bw.png");
-    background-size: 800px;
+    /*background-image: url("/images/bgimages/burger.png");
+    /*background-color: #FCFCFC;*/
+    background-color: gray;
+    background-size: 450px;
     font-family: Open Sans, Helvetica, sans-serif;
     font-weight: bold;
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-attachment: fixed;*/
+    background-size: 450px;
+    background-color: gray;
+    opacity: 0.4;
+    filter:alpha(opacity=50);
+    z-index: -1;
 }
 
 h1 {
@@ -35,6 +51,7 @@ h1 {
 .text-center {
     color: white; /*name when logged in*/
     margin-top: 20px;
+    position: sticky;
 }
 
 .btn-default {
