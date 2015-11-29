@@ -21,7 +21,7 @@ var favoriteRoutes = require('./routes/favorites.js')
 // mongoose connection local
 // mongoose.connect('mongodb://localhost/wdiEat'
 //mongoos connection heroku
-mongoose.connect('mongodb://johnm589:Remington870@ds059644.mongolab.com:59644/wdi-eat'
+mongoose.connect('mongodb://johnm589:johnm589@ds059644.mongolab.com:59644/wdi-eat'
 , function(err){
 	if(err) return console.log('Cannot connect :(')
 	console.log('Connected to MongoDB. Sweet!')
