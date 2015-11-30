@@ -167,6 +167,9 @@
     if ($('#location').val() === "" && current) {
             $('#location').val(current)
           }
+    if ($('#cll').val() === ""){
+          $('#cll').val(cll)
+        }
   // Logo Move
   $(document).ready(function(e) {
     width = "+=" + $(document).width()
@@ -175,9 +178,7 @@
               left: width
             }, 800, function() {
               // if cll field is empty (which means geolocation failed), then use the longitude/latitude retrieved from freegeoip
-    if ($('#cll').val() === ""){
-        $('#cll').val(cll)
-    }
+
         })
       })
     })
