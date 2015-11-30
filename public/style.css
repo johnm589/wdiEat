@@ -74,6 +74,8 @@ h1 {
     margin-top: 60px;
     padding-bottom: 20px;
     background-color: #776666;
+    box-shadow: inset 5px 5px 10px grey,inset -5px -5px 10px grey;
+
 /*
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(245,245,245,1)), color-stop(0%, rgba(0,0,0,1)), color-stop(0%, rgba(92,92,92,1)), color-stop(0%, rgba(138,138,138,1)), color-stop(83%, rgba(56,56,56,1)), color-stop(89%, rgba(56,56,56,1)), color-stop(100%, rgba(56,56,56,1)));
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
@@ -83,6 +85,7 @@ h1 {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#383838', GradientType=0 );
 */
 }
+
 
 .cuisines-container {
   overflow: auto;

@@ -46,8 +46,10 @@
 	</a>
 
 <div class="container">
+
 		<!-- navigation bar for when a session is found -->
 		<div class = "text-center">
+
 			<% if (user) {%>
 				<h1><%= user.local.name || user.facebook.name %></h1>
 				<a href="/logout" class="btn btn-default btn-sm">Logout</a>
@@ -66,7 +68,7 @@
 
 
 		<%- body %>
-	</div>
+</div>
 </body>
 
 
