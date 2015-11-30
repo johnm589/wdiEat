@@ -48,8 +48,7 @@
   $('#shake-again').on('click',function(evt){
     location.reload()
   })
-
-  var favorite = JSON.parse($('#result').text())
+    var favorite = JSON.parse($('#result').text())
   var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
   // if session exists, store the user's id into userId
   if ($('#user').text().length !== 0) {
