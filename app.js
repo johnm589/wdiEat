@@ -20,6 +20,7 @@ var favoriteRoutes = require('./routes/favorites.js')
 
 // mongoose connection local
 // mongoose.connect('mongodb://localhost/wdiEat'
+
 //mongoos connection heroku
 mongoose.connect('mongodb://johnm589:johnm589@ds059644.mongolab.com:59644/wdi-eat'
 , function(err){
