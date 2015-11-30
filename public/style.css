@@ -3,12 +3,36 @@
     font-family: hamburgerFont;
     src: url(../font/HamburgerHeavenNF.ttf);
 }
+
 body {
-    /*background-image: url("/images/food_icons.png");*/
-    background-color: black;
-    background-size: 800px;
-    font-family: Open Sans, Helvetica, sans-serif;;
+    /*background-image: url("/images/bgimages/burger.png");
+    /*background-color: #FCFCFC;*/
+    background-color: gray;
+    background-size: 450px;
+    font-family: Open Sans, Helvetica, sans-serif;
+    font-weight: bold;
 }
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-attachment: fixed;*/
+    background-size: 450px;
+    background-color: gray;
+    opacity: 0.4;
+    filter:alpha(opacity=50);
+    z-index: -1;
+}
+
+h1 {
+    font-weight: 100;
+}
+
+/*WDI Logo*/
+
 #canvaslogo{
   background-color: grey;
   border-radius: 1000px;
@@ -22,17 +46,46 @@ body {
   float: left;
 }
 
-.container {
-    border: 1px solid black;
-    width: 700px;
+/*main nav bar header text and buttons*/
 
+.text-center {
+    color: white; /*name when logged in*/
+    margin-top: 20px;
+    position: sticky;
+}
+
+.btn-default {
+    border-radius: 4px;
+    color: #000;
+    background: #ffa33a;
+    border: 0;
+    transition: all .5s ease;
+}
+
+.btn-default:hover {
+    background: #ffc52d;
+}
+
+/*main container*/
+
+.container {
+    /*border: 1px solid black;*/
+    width: 700px;
+    margin-top: 60px;
+    padding-bottom: 20px;
+    background-color: #776666;
+    box-shadow: inset 5px 5px 10px grey,inset -5px -5px 10px grey;
+
+/*
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(245,245,245,1)), color-stop(0%, rgba(0,0,0,1)), color-stop(0%, rgba(92,92,92,1)), color-stop(0%, rgba(138,138,138,1)), color-stop(83%, rgba(56,56,56,1)), color-stop(89%, rgba(56,56,56,1)), color-stop(100%, rgba(56,56,56,1)));
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
     background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 0%, rgba(0,0,0,1) 0%, rgba(92,92,92,1) 0%, rgba(138,138,138,1) 0%, rgba(56,56,56,1) 83%, rgba(56,56,56,1) 89%, rgba(56,56,56,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#383838', GradientType=0 );
+*/
 }
+
 
 .cuisines-container {
   overflow: auto;
@@ -40,9 +93,6 @@ body {
   overflow-x: hidden;
 }
 
-.text-center {
-
-}
 .logo-all{
   font-family: hamburgerFont;
   font-size: 50px;
@@ -53,14 +103,31 @@ body {
 
 }
 
+/*Main container bootstrap class*/
+
 .col-sm-6 {
     color: white;
 }
+
+
+/*cuisines options*/
+
+.cuisines-options {
+  display:none;
+}
+
+.checked {
+  background-color: skyblue;
+}
+
+/*Text inside results container*/
 
 .results-container {
     width: 100%;
     color: #fff;
 }
+
+/*results container button*/
 
 .results-container button {
     border-radius: 4px;
@@ -69,16 +136,13 @@ body {
     border: 0;
     transition: all .5s ease;
 }
+
 .results-container button:hover {
     background: #ffc52d;
 }
 
 .restaurant-buttons {
     margin-bottom: 12px;
-}
-
-h1 {
-    font-weight: 100;
 }
 
 .restaurant-title h1 {
@@ -104,15 +168,13 @@ h1 {
     background-position: center center;
     background-repeat: no-repeat;
 }
-a:hover, a:active {
-    color: #ffdd8f;
-    text-decoration: none;
-    border-bottom: 1px solid #ffdd8f;
-}
+
 .favorite {
   border: 2px solid grey;
   padding: 5px;
 }
+
+/*See restaraunt on Yelp link*/
 
 a {
     color: #ffa31a;
@@ -121,10 +183,17 @@ a {
     text-decoration: none;
 }
 
+a:hover, a:active {
+    color: #ffdd8f;
+    text-decoration: none;
+    border-bottom: 1px solid #ffdd8f;
+}
+
 .header {
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
 .results-info {
     font-size: 18px;
 }
@@ -133,21 +202,14 @@ a {
     color: black;
 }
 
-.cuisines-options {
-  display:none;
-}
-
-.checked {
-  background-color: skyblue;
-}
-
-
 #restaurant-image {
   width: 500px;
 }
 
+/*frame that holds google map*/
+
 iframe {
-  width: 600px;
+  width: 100%;
   height: 450px;
   border: 0px;
 }
