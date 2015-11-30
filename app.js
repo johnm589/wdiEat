@@ -12,10 +12,6 @@ var passportConfig = require('./config/passport.js')
 			 		 express = require('express'),
 					 		port = process.env.PORT || 3000,
 			 	 			 app = express()
-, share = require('social-share')
-, url = share('twitter', {
-    title:'share it'
-})
 
 // require routes
 var userRoutes = require('./routes/users.js')
@@ -24,6 +20,7 @@ var favoriteRoutes = require('./routes/favorites.js')
 
 // mongoose connection local
 // mongoose.connect('mongodb://localhost/wdiEat'
+
 //mongoos connection heroku
 mongoose.connect('mongodb://johnm589:johnm589@ds059644.mongolab.com:59644/wdi-eat'
 , function(err){
@@ -37,11 +34,6 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-//Social Sharing
-app.get('/redirect', function(req, res) {
-    var url = share(req.query.service, req.query);
-    res.redirect(url);
-});
 
 // make files inside the public accessible to app
 app.use(express.static(__dirname + '/public'))

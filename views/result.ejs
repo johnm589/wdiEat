@@ -1,3 +1,5 @@
+<script src="/share.min.js"></script>
+
 <div class="results-container">
 
     <div class="restaurant-title clearfix">
@@ -15,18 +17,19 @@
 
     <div class="restaurant-image-container" style="background-image: url(<%= chosen.image_url.replace('ms.jpg', 'o.jpg') %>)"></div>
 
-    <p>phone-number: <%=chosen.display_phone %></p>
+    <p>Phone Number: <%=chosen.display_phone %></p>
     <p><a href="<%= chosen.url %>">See Restaurant on Yelp</a></p>
 
 
     <p><%= chosen.location["display_address"].toString() %></p>
 
     <div class="restaurant-buttons">
-        <button id="shake-again">Try again</button>
+        <button id="shake-again">Try again!</button>
         <a href="/"><button id="back">Back</button></a>
-        <% if (user) {%>
-          <a href="/profile"><button id="save">GOING</button></a>
-        <% } %>
+         <% if (user) {%>
+          <a href="/profile"><button id="save">Save to Favorites!</button></a>
+         <% } %>
+<b class="J-share" href="#" data-service="facebook"> <button>Share On Facebook! <img id= "facebook-pic" src ="https://www.facebookbrand.com/img/fb-art.jpg"></button></b>
     </div>
 
     <iframe
@@ -40,15 +43,27 @@
 
 </div>
 
+
 <!-- Make the result accessible to javascript-->
 <div id="result" style="display: none"><%=JSON.stringify(chosen) %></div>
+
+<!--Social Sharing  -->
+
+
+
+<script>
+      Share.init(document.getElementsByTagName('b'), {
+          title: 'WDI Eat: App for Picking Food',
+          url: 'http://whispering-sands-7431.herokuapp.com/'
+      });
+</script>
 
 <script>
   // reload the page for new result
   $('#shake-again').on('click',function(evt){
     location.reload()
   })
-]  var favorite = JSON.parse($('#result').text())
+    var favorite = JSON.parse($('#result').text())
   var address = favorite.location.display_address[0] + ", " + favorite.location.display_address[1]
   // if session exists, store the user's id into userId
   if ($('#user').text().length !== 0) {
