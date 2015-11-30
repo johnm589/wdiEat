@@ -3,7 +3,7 @@ module.exports = {
   'facebookAuth': {
     'clientID': '1703688579867486',
     'clientSecret': '6782e15e9570b5a1e96354b33d6be12d',
-    'callbackURL': '/auth/facebook/callback',
+    'callbackURL': 'https://whispering-sands-7431.herokuapp.com/auth/facebook/callback',
     'profileFields': ['emails', 'displayName']
   },
   'yelpAuth': {
