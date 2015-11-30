@@ -30,7 +30,6 @@
     "request": "^2.67.0",
     "share": "^0.7.40",
     "social": "^0.4.0",
-    "social-share": "^0.1.0",
     "window-popup": "^1.0.1",
     "yelp": "^1.0.0"
   },
