@@ -43,4 +43,4 @@ Also, the user can choose to reset their parameters and be redirected home.
 
 # More Info
 
-https://docs.google.com/document/d/1FWffy1unxK41MSDDFsBV3bQw2Nq5_IiYzeu1v6fSy4s/edit
+https://docs.google.com/document/d/1FWffy1unxK41MSDDFsBV3bQw2Nq5_IiYzeu1v6fSy4s/edit?usp=sharing
