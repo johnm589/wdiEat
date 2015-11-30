@@ -72,7 +72,7 @@ shakerRouter.post('/result', function(req,res) {
 
            var random = Math.floor((Math.random() * JSON.parse(body).businesses.length))
            var chosen = JSON.parse(body).businesses[random]
-          //  console.log(chosen)
+           console.log(chosen)
            res.render('result', {chosen: chosen, user:req.user, cll: req.body.cll})
        } else {
         // if the request was successful and the result includes 0 restaurants, prompt user to try again
